@@ -49,6 +49,12 @@
             </div>
             @endif
 
+            @if (env('LINK_REDDIT'))
+            <div class="navbar-item is-inline-block is-navbar-fixed-top">
+                <a href="{{ env('LINK_REDDIT') }}"><i class="fab fa-reddit"></i></a>
+            </div>
+            @endif
+
             @if (env('LINK_DISCORD'))
             <div class="navbar-item is-inline-block is-navbar-fixed-top">
                 <a href="{{ env('LINK_DISCORD') }}"><i class="fab fa-discord"></i></a>
