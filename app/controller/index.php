@@ -43,8 +43,13 @@ class IndexController extends BaseController {
 	{
 		try {
 			$paginate = $request->params()->query('paginate', null);
+			$random = $request->params()->query('random', false);
 
-			$photos = PhotoModel::queryPhotos($paginate);
+			if ($random == false) {
+				$photos = PhotoModel::queryPhotos($paginate);
+			} else {
+				$photos = PhotoModel::queryRandom();
+			}
 
 			$data = [];
 
@@ -104,7 +109,11 @@ class IndexController extends BaseController {
 	 */
 	public function viewSearch($request)
 	{
-		return parent::view(['content', 'search']);
+		$tags = TagsModel::getTagList();
+
+		return parent::view(['content', 'search'], [
+			'tags' => $tags
+		]);
 	}
 
 	/**

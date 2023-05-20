@@ -196,7 +196,7 @@ class PhotoModel extends \Asatru\Database\Model {
             PhotoModel::raw('INSERT INTO `' . self::tableName() . '` (title, name, tags, photo_thumb, photo_full) VALUES(?, ?, ?, ?, ?);', [
                 $title,
                 $name,
-                $tags,
+                trim(strtolower($tags)),
                 $newName . '_thumb' . '.' . $fileExt,
                 $newName . '.' . $fileExt
             ]);
@@ -209,6 +209,11 @@ class PhotoModel extends \Asatru\Database\Model {
                 $slug,
                 $last_item->get('id')
             ]);
+
+            $taglist = explode(' ', $tags);
+            foreach ($taglist as $tag) {
+                TagsModel::addTag(trim(strtolower($tag)));
+            }
 
             return $last_item->get('id');
         } catch (Exception $e) {
@@ -253,6 +258,25 @@ class PhotoModel extends \Asatru\Database\Model {
                     $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY id DESC LIMIT ' . $limit);
                 }
             }
+
+            return $photos;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function queryRandom()
+    {
+        try {
+            $photos = null;
+
+            $limit = env('APP_PHOTOPACKLIMIT', 20);
+
+            $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY RAND() DESC LIMIT ' . $limit);
 
             return $photos;
         } catch (\Exception $e) {

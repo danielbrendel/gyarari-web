@@ -39,6 +39,8 @@
                 if (document.getElementById('photos-recent')) {
                     window.recentPhotosPaginate = null;
                     window.vue.queryRecentPhotos();
+                } else if (document.getElementById('photos-random')) {
+                    window.vue.queryRandomPhotos();
                 }
             });
         </script>

@@ -29,5 +29,11 @@ return [
 	'error' => 'Error',
 	'post_invalid_file_type' => 'The given file type is invalid: {filetype}',
 	'photo_uploaded_by' => 'Photo uploaded by {name} &bull; {date}',
-	'recent_title' => 'Recently uploaded photos'
+	'recent_title' => 'Recently uploaded photos',
+	'random_title' => 'Random photos from our community',
+	'search_title' => 'Search for photos',
+	'refresh' => 'Refresh',
+	'search_hint' => 'What are you looking for?',
+	'search_placeholder' => 'Enter a phrase',
+	'search_submit' => 'Search'
 ];

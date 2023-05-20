@@ -10,11 +10,11 @@ html, body {
     width: 100%;
     padding: 0;
     margin: 0;
+    background-color: rgb(243, 220, 200);
 }
 
 body {
     overflow-x: hidden;
-    background-color: rgb(243, 220, 200);
 }
 
 #app {
@@ -96,6 +96,19 @@ body {
     max-width: unset !important;
 }
 
+.input, .file-name {
+    color: rgb(100, 100, 100);
+    background-color: rgb(223, 185, 154);
+}
+
+.file-cta {
+    background-color: rgb(220, 168, 125);
+}
+
+.file-cta:hover {
+    background-color: rgb(220, 168, 125) !important;
+}
+
 input[type=submit] {
     margin-top: 30px;
     margin-bottom: 50px;
@@ -106,7 +119,7 @@ input[type=submit] {
 }
 
 .icon i {
-    color: rgb(200, 200, 200);
+    color: rgb(120, 120, 120);
 }
 
 .info {
@@ -206,7 +219,7 @@ input[type=submit] {
     width: 100%;
     height: 80px;
     padding: 15px;
-    background-color: rgba(50, 50, 50, 0.8);
+    background-color: rgba(20, 20, 20, 0.8);
 }
 
 .photo-info-data {
@@ -230,13 +243,13 @@ input[type=submit] {
 	}
 }
 
-#loadmore a {
-    color: rgb(50, 115, 220);
+#loadmore {
+    margin-top: 50px;
 }
 
-#loadmore a:hover {
-    color: rgb(50, 115, 220);
-    text-decoration: underline;
+.paragraph {
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .footer {
