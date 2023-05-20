@@ -10,23 +10,17 @@
 
                 <div class="flash-message">
                     @if (FlashMessage::hasMsg('error'))
-                    <div id="error-message-1">
-                        <article class="message is-danger">
-                            <div class="message-header">
-                                <p>{{ __('app.error') }}</p>
-                                <button class="delete" aria-label="delete" onclick="document.getElementById('error-message-1').style.display = 'none';"></button>
-                            </div>
-                            <div class="message-body">
-                                {{ FlashMessage::getMsg('error') }}
-                            </div>
-                        </article>
-                    </div>
+                    <div class="info info-box-red">
+                        <div class="info-title info-header-red">{{ __('app.error') }}</div>
+
+                        <div class="info-content info-content-red">{!! FlashMessage::getMsg('error') !!}</div>
+				    </div>
                     @endif
                 </div>
 
                 <form method="POST" action="{{ url('/upload') }}" enctype="multipart/form-data">
                     @csrf
-                    
+
                     <div class="field">
                         <label class="label">{{ __('app.upload_specify_title') }}</label>
                         <p class="control has-icons-left">

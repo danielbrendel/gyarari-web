@@ -217,6 +217,50 @@ class PhotoModel extends \Asatru\Database\Model {
     }
 
     /**
+     * @param $paginate
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function queryPhotos($paginate = null, $search_token = null)
+    {
+        try {
+            $photos = null;
+
+            $limit = env('APP_PHOTOPACKLIMIT', 20);
+            $search_token = '%' . $search_token . '%';
+
+            if ($paginate !== null) {
+                if ($search_token !== null) {
+                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id < ? AND (title LIKE ? OR name LIKE ? OR tags LIKE ?) ORDER BY id DESC LIMIT ' . $limit, [
+                        $paginate,
+                        $search_token,
+                        $search_token,
+                        $search_token
+                    ]);
+                } else {
+                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id < ? ORDER BY id DESC LIMIT ' . $limit, [
+                        $paginate
+                    ]);
+                }
+            } else {
+                if ($search_token !== null) {
+                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE title LIKE ? OR name LIKE ? OR tags LIKE ? ORDER BY id DESC LIMIT ' . $limit, [
+                        $search_token,
+                        $search_token,
+                        $search_token
+                    ]);
+                } else {
+                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY id DESC LIMIT ' . $limit);
+                }
+            }
+
+            return $photos;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * @param $id
      * @return mixed
      * @throws \Exception

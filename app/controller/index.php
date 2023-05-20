@@ -34,6 +34,47 @@ class IndexController extends BaseController {
 	}
 
 	/**
+	 * Handles URL: /photos/query
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\JsonHandler
+	 */
+	public function queryPhotos($request)
+	{
+		try {
+			$paginate = $request->params()->query('paginate', null);
+
+			$photos = PhotoModel::queryPhotos($paginate);
+
+			$data = [];
+
+			foreach ($photos as $photo) {
+				$data[] = [
+					'id' => $photo->get('id'),
+					'slug' => $photo->get('slug'),
+					'title' => $photo->get('title'),
+					'name' => $photo->get('name'),
+					'tags' => explode(' ', $photo->get('title')),
+					'photo_thumb' => $photo->get('photo_thumb'),
+					'photo_full' => $photo->get('photo_full'),
+					'created_at' => $photo->get('created_at'),
+					'diffForHumans' => (new Carbon($photo->get('created_at')))->diffForHumans()
+				];
+			}
+
+			return json([
+				'code' => 200,
+				'data' => $data
+			]);
+		} catch (\Exception $e) {
+			return json([
+				'code' => 500,
+				'msg' => $e->getMessage()
+			]);
+		}
+	}
+
+	/**
 	 * Handles URL: /recent
 	 * 
 	 * @param Asatru\Controller\ControllerArg $request

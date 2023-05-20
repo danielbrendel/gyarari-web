@@ -29,4 +29,5 @@ return [
 	'error' => 'Error',
 	'post_invalid_file_type' => 'The given file type is invalid: {filetype}',
 	'photo_uploaded_by' => 'Photo uploaded by {name} &bull; {date}',
+	'recent_title' => 'Recently uploaded photos'
 ];

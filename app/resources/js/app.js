@@ -13,6 +13,11 @@ window.vue = new Vue({
     el: '#app',
 
     data: {
+        lang: {
+            load_more: 'Load more',
+            no_more_items: 'No more items',
+            photo_by: 'Photo by {name}',
+        }
     },
 
     methods: {
@@ -54,6 +59,61 @@ window.vue = new Vue({
                         finalfunc();
                     }
                 );
+        },
+
+        queryRecentPhotos: function() {
+            if (window.recentPhotosPaginate === null) {
+                document.getElementById('photos-recent').innerHTML = '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
+            } else {
+                document.getElementById('photos-recent').innerHTML += '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
+            }
+
+            if (document.getElementById('loadmore')) {
+                document.getElementById('loadmore').remove();
+            }
+
+            window.vue.ajaxRequest('post', window.location.origin + '/photos/query', { paginate: window.recentPhotosPaginate }, function(response){
+                if (response.code == 200) {
+                    if (document.getElementById('spinner')) {
+                        document.getElementById('spinner').remove();
+                    }
+
+                    if (response.data.length > 0) {
+                        response.data.forEach(function(elem, index) {
+                            let html = window.vue.renderPhotoPreview(elem);
+
+                            document.getElementById('photos-recent').innerHTML += html;
+                        });
+
+                        window.recentPhotosPaginate = response.data[response.data.length - 1].id;
+
+                        if (!response.last) {
+                            document.getElementById('photos-recent').innerHTML += '<div id="loadmore"><center><a class="is-def-color" href="javascript:void(0);" onclick="window.vue.queryRecentPhotos();">' + window.vue.lang.load_more + '</a></center></div>';
+                        }
+                    } else {
+                        document.getElementById('photos-recent').innerHTML += '<div><center><br/>' + window.vue.lang.no_more_items + '</center></div>';
+                    }
+                }
+            });
+        },
+
+        renderPhotoPreview: function(elem) {
+            let info_by = window.vue.lang.photo_by.replace('{name}', elem.name);
+
+            let html = `
+                <a href="` + window.location.origin + '/photo/' + elem.slug + `">
+                    <div class="photo" style="background-image: url('` + window.location.origin + '/img/photos/' + elem.photo_thumb + `');" onmouseover="document.getElementById('photo-overlay-` + elem.id + `').style.display = 'block';" onmouseout="document.getElementById('photo-overlay-` + elem.id + `').style.display = 'none';">
+                        <div class="photo-info-overlay fade-in" id="photo-overlay-` + elem.id + `">
+                            <div class="photo-info-data">
+                                <div>` + info_by + `</div>
+                                <div>` + elem.diffForHumans + `</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            `;
+
+            return html;
         },
     }
 });

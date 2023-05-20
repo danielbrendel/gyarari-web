@@ -14,6 +14,7 @@ html, body {
 
 body {
     overflow-x: hidden;
+    background-color: rgb(243, 220, 200);
 }
 
 #app {
@@ -30,7 +31,7 @@ body {
 
 .header {
     width: 100%;
-    height: 285px;
+    height: 185px;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -43,22 +44,30 @@ body {
 
 .header-content {
     position: relative;
-    top: 50%;
-    transform: translate(0%, 5%);
+    margin-top: 23px;
     padding: 10px;
     font-family: Nunito, Verdana, Geneva, Tahoma, sans-serif;
+    @media screen and (max-width: 768px) {
+        margin-top: -5px;
+    }
 }
 
 .header-content h1 {
     font-size: 2.5em;
     color: rgb(100, 100, 100);
     text-shadow: -1px -1px 0 rgb(150, 150, 150), 1px -1px 0 rgb(150, 150, 150), -1px 1px 0 rgb(150, 150, 150), 1px 1px 0 rgb(150, 150, 150);
+    @media screen and (max-width: 768px) {
+        font-size: 2.0em;
+    }
 }
 
 .header-content h2 {
     font-size: 2.0em;
     color: rgb(150, 150, 150);
     text-shadow: -1px -1px 0 rgb(5, 5, 5), 1px -1px 0 rgb(5, 5, 5), -1px 1px 0 rgb(5, 5, 5), 1px 1px 0 rgb(5, 5, 5);
+    @media screen and (max-width: 768px) {
+        font-size: 1.5em;
+    }
 }
 
 .content-section {
@@ -66,10 +75,15 @@ body {
     margin-top: 50px;
     margin-bottom: 100px;
     padding: 20px;
+    @media screen and (max-width: 480px) {
+        padding: 5px;
+        text-align: center;
+        margin-top: 5px;
+    }
 }
 
 .content-section h3 {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     font-size: 1.5em;
 }
 
@@ -93,6 +107,136 @@ input[type=submit] {
 
 .icon i {
     color: rgb(200, 200, 200);
+}
+
+.info {
+    position: relative;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.info-title {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.info-content {
+    padding: 20px;
+}
+
+.info-box-green {
+    border: 1px solid rgb(20, 143, 25);
+}
+
+.info-header-green {
+    background-color: rgba(31, 220, 40, 0.8);
+    color: rgb(250, 250, 250);
+}
+
+.info-content-green {
+    color: rgb(50, 50, 50);
+    background-color: rgba(31, 220, 40, 0.3);
+}
+
+.info-content-green strong {
+    color: rgb(50, 50, 50);
+}
+
+.info-box-red {
+    border: 1px solid rgb(123, 68, 68);
+}
+
+.info-header-red {
+    background-color: rgba(205, 40, 38, 0.8);
+    color: rgb(250, 250, 250);
+}
+
+.info-content-red {
+    color: rgb(50, 50, 50);
+    background-color: rgba(205, 40, 38, 0.4);
+}
+
+.info-content-red strong {
+    color: rgb(50, 50, 50);
+}
+
+.info-box-blue {
+    border: 1px solid rgb(20, 85, 143);
+}
+
+.info-header-blue {
+    background-color: rgba(35, 90, 245, 0.8);
+    color: rgb(250, 250, 250);
+}
+
+.info-content-blue {
+    color: rgb(50, 50, 50);
+    background-color: rgba(0, 76, 168, 0.3);
+}
+
+.info-content-blue strong {
+    color: rgb(50, 50, 50);
+}
+
+.photo {
+    position: relative;
+    display: inline-block;
+    width: 350px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 1px solid rgb(150, 150, 150);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.photo:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.photo-info-overlay {
+    position: absolute;
+    display: none;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 15px;
+    background-color: rgba(50, 50, 50, 0.8);
+}
+
+.photo-info-data {
+    color: rgb(200, 200, 200);
+}
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: .3s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+#loadmore a {
+    color: rgb(50, 115, 220);
+}
+
+#loadmore a:hover {
+    color: rgb(50, 115, 220);
+    text-decoration: underline;
 }
 
 .footer {

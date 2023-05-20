@@ -35,6 +35,11 @@
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 window.vue.initNavbar();
+
+                if (document.getElementById('photos-recent')) {
+                    window.recentPhotosPaginate = null;
+                    window.vue.queryRecentPhotos();
+                }
             });
         </script>
     </body>
