@@ -32,7 +32,7 @@ return [
 	'error' => 'Error',
 	'info' => 'Info',
 	'post_invalid_file_type' => 'The given file type is invalid: {filetype}',
-	'photo_uploaded_by' => 'Photo uploaded by {name} &bull; {date}',
+	'photo_uploaded_by' => 'Photo uploaded by <a href="{link}">{name}</a> &bull; {date}',
 	'recent_title' => 'Recently uploaded photos',
 	'random_title' => 'Random photos from our community',
 	'search_title' => 'Search for photos',

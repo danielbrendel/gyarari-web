@@ -18,7 +18,7 @@
                     @endif
                 </div>
 
-                <form method="POST" action="{{ url('/upload') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ url('/upload') }}" enctype="multipart/form-data" id="form-upload">
                     @csrf
 
                     <div class="field">
@@ -34,7 +34,7 @@
                     <div class="field">
                         <label class="label">{{ __('app.upload_specify_name') }}</label>
                         <p class="control has-icons-left">
-                            <input class="input" type="text" name="name" placeholder="{{ __('app.upload_placeholder_name') }}" required>
+                            <input class="input" type="text" name="name" id="upload-name" placeholder="{{ __('app.upload_placeholder_name') }}" required>
                             <span class="icon is-small is-left">
                                 <i class="fas fa-user"></i>
                             </span>
@@ -44,7 +44,7 @@
                     <div class="field">
                         <label class="label">{{ __('app.upload_specify_email') }}</label>
                         <p class="control has-icons-left">
-                            <input class="input" type="email" name="email" placeholder="{{ __('app.upload_placeholder_email') }}" required>
+                            <input class="input" type="email" name="email" id="upload-email" placeholder="{{ __('app.upload_placeholder_email') }}" required>
                             <span class="icon is-small is-left">
                                 <i class="fas fa-envelope"></i>
                             </span>
@@ -90,7 +90,7 @@
 
                     <div class="field">
                         <div class="control">
-                            <input type="submit" class="input button is-link" value="{{ __('app.upload_submit') }}">
+                            <a class="input button is-link is-margin-top-40" href="javascript:void(0);" onclick="window.vue.performItemUpload('form-upload', 'upload-name', 'upload-email');">{{ __('app.upload_submit') }}</a>
                         </div>
                     </div>
                 </form>

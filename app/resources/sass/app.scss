@@ -124,6 +124,15 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
     font-size: 1.1em;
 }
 
+.content-section a {
+    color: rgb(50, 115, 220);
+}
+
+.content-section a:hover {
+    color: rgb(50, 115, 220);
+    text-decoration: underline;
+}
+
 .file-name {
     max-width: unset !important;
 }
@@ -133,11 +142,11 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
     background-color: rgb(223, 185, 154);
 }
 
-.file-cta {
+.file-cta, .file-label:hover .file-cta {
     background-color: rgb(220, 168, 125);
 }
 
-.file-cta:hover {
+.file-cta:hover, .file-label:hover {
     background-color: rgb(220, 168, 125) !important;
 }
 
@@ -354,4 +363,8 @@ input[type=submit] {
 
 .is-full-width {
     width: 100%;
+}
+
+.is-margin-top-40 {
+    margin-top: 40px;
 }

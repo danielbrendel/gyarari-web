@@ -55,6 +55,9 @@
                     @if (isset($_GET['text']))
                         document.getElementById('search-submit').click();
                     @endif
+                } else if (document.getElementById('form-upload')) {
+                    document.getElementById('upload-name').value = window.vue.getCookie('upload-name');
+                    document.getElementById('upload-email').value = window.vue.getCookie('upload-email');
                 }
             });
         </script>

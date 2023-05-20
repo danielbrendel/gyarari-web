@@ -61,6 +61,22 @@ window.vue = new Vue({
                 );
         },
 
+        setCookie: function(name, value) {
+            let expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+            document.cookie = name + '=' + String(value) + '; expires=' + expDate.toUTCString() + '; path=/;';
+        },
+
+        getCookie: function(name, def = null) {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                if (cookies[i].indexOf(name) !== -1) {
+                    return cookies[i].substr(cookies[i].indexOf('=') + 1);
+                }
+            }
+
+            return def;
+        },
+
         queryRecentPhotos: function(target = 'recent', search = null, loadmore = true) {
             if (window.recentPhotosPaginate === null) {
                 document.getElementById('photos-' + target).innerHTML = '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
@@ -136,6 +152,16 @@ window.vue = new Vue({
             `;
 
             return html;
+        },
+
+        performItemUpload: function(form, name, email) {
+            let elem = document.getElementById(form);
+            if (elem) {
+                window.vue.setCookie('upload-name', document.getElementById(name).value);
+                window.vue.setCookie('upload-email', document.getElementById(email).value);
+
+                elem.submit();
+            }
         },
     }
 });
