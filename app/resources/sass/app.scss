@@ -2,9 +2,7 @@
     app.scss
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Rubik&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Shadows+Into+Light+Two&family=MedievalSharp&display=swap');
 
 html, body {
     width: 100%;
@@ -78,7 +76,7 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
     position: relative;
     margin-top: 23px;
     padding: 10px;
-    font-family: Nunito, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: MedievalSharp, Nunito, Verdana, Geneva, Tahoma, sans-serif;
     @media screen and (max-width: 768px) {
         margin-top: -5px;
     }
@@ -86,8 +84,8 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 
 .header-content h1 {
     font-size: 2.5em;
-    color: rgb(100, 100, 100);
-    text-shadow: -1px -1px 0 rgb(150, 150, 150), 1px -1px 0 rgb(150, 150, 150), -1px 1px 0 rgb(150, 150, 150), 1px 1px 0 rgb(150, 150, 150);
+    color: rgb(109, 35, 3);
+    text-shadow: -1px -1px 0 rgb(255, 155, 111), 1px -1px 0 rgb(255, 155, 111), -1px 1px 0 rgb(255, 155, 111), 1px 1px 0 rgb(255, 155, 111);
     @media screen and (max-width: 768px) {
         font-size: 2.0em;
     }
@@ -95,8 +93,8 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 
 .header-content h2 {
     font-size: 2.0em;
-    color: rgb(150, 150, 150);
-    text-shadow: -1px -1px 0 rgb(5, 5, 5), 1px -1px 0 rgb(5, 5, 5), -1px 1px 0 rgb(5, 5, 5), 1px 1px 0 rgb(5, 5, 5);
+    color: rgb(109, 35, 3);
+    text-shadow: -1px -1px 0 rgb(255, 155, 111), 1px -1px 0 rgb(255, 155, 111), -1px 1px 0 rgb(255, 155, 111), 1px 1px 0 rgb(255, 155, 111);
     @media screen and (max-width: 768px) {
         font-size: 1.5em;
     }
