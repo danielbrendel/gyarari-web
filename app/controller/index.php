@@ -141,12 +141,14 @@ class IndexController extends BaseController {
 		try {
 			$title = $request->params()->query('title', null);
 			$name = $request->params()->query('name', null);
+			$email = $request->params()->query('email', null);
 			$tags = $request->params()->query('tags', null);
 			$captcha = $request->params()->query('captcha', null);
 
 			$validator = new Asatru\Controller\PostValidator([
 				'title' => 'required|min:5',
 				'name' => 'required|min:3',
+				'email' => 'required|email',
 				'captcha' => 'required|numeric'
 			]);
 
@@ -160,9 +162,17 @@ class IndexController extends BaseController {
 
 			$photo = PhotoModel::store($title, $name, $tags);
 
+			$message = view('mail/mail_layout', ['mail', 'mail/' . getLocale() . '/mail_upload'], [
+				'name' => $name,
+				'link' => url('/photo/' . $photo->get('id')),
+				'removal' => url('/photo/' . $photo->get('id') . '/remove/' . $photo->get('removal_token'))
+			])->out(true);
+
+			MailerModule::sendMail($email, env('APP_NAME') . ' - ' . $title, $message);
+
 			FlashMessage::setMsg('success', __('app.photo_shared_successfully'));
 
-			return redirect('/photo/' . $photo);
+			return redirect('/photo/' . $photo->get('id'));
 		} catch (\Exception $e) {
 			FlashMessage::setMsg('error', $e->getMessage());
 			return back();
@@ -193,6 +203,29 @@ class IndexController extends BaseController {
 				'tags' => $tags,
 				'diffForHumans' => $diffForHumans
 			]);
+		} catch (\Exception $e) {
+			FlashMessage::setMsg('error', $e->getMessage());
+			return redirect('/');
+		}
+	}
+
+	/**
+	 * Handles URL: /photo/{id}/remove/{token}
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\ViewHandler
+	 */
+	public function removePhoto($request)
+	{
+		try {
+			$id = $request->arg('id', null);
+			$token = $request->arg('token', null);
+
+			PhotoModel::removePhoto($id, $token);
+
+			FlashMessage::setMsg('success', __('app.photo_removed'));
+
+			return redirect('/');
 		} catch (\Exception $e) {
 			FlashMessage::setMsg('error', $e->getMessage());
 			return redirect('/');

@@ -42,6 +42,16 @@
                     </div>
 
                     <div class="field">
+                        <label class="label">{{ __('app.upload_specify_email') }}</label>
+                        <p class="control has-icons-left">
+                            <input class="input" type="email" name="email" placeholder="{{ __('app.upload_placeholder_email') }}" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="field">
                         <label class="label">{{ __('app.upload_specify_tags') }}</label>
                         <p class="control has-icons-left">
                             <input class="input" type="text" name="tags" placeholder="{{ __('app.upload_placeholder_tags') }}">

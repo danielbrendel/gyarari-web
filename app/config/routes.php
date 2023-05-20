@@ -23,6 +23,7 @@ return [
     array('/upload', 'GET', 'index@viewUpload'),
     array('/upload', 'POST', 'index@upload'),
     array('/photo/{id}', 'GET', 'index@showPhoto'),
+    array('/photo/{id}/remove/{token}', 'ANY', 'index@removePhoto'),
     array('/photos/query', 'ANY', 'index@queryPhotos'),
     array('$404', 'ANY', 'error404@index')
 ];

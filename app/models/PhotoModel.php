@@ -7,8 +7,6 @@ class PhotoModel extends \Asatru\Database\Model {
     const FILE_IDENT = 'photo';
 
     /**
-     * Check if file is a valid image
-     *
      * @param string $imgFile
      * @return bool
      */
@@ -34,8 +32,6 @@ class PhotoModel extends \Asatru\Database\Model {
     }
 
     /**
-     * Get image type
-     *
      * @param $ext
      * @param $file
      * @return mixed|null
@@ -60,8 +56,6 @@ class PhotoModel extends \Asatru\Database\Model {
     }
 
     /**
-     * Correct image rotation of uploaded image
-     *
      * @param $filename
      * @param &$image
      * @return void
@@ -90,8 +84,6 @@ class PhotoModel extends \Asatru\Database\Model {
     }
 
     /**
-     * Create thumb file of image
-     *
      * @param $srcfile
      * @param $imgtype
      * @param $basefile
@@ -133,7 +125,7 @@ class PhotoModel extends \Asatru\Database\Model {
         $newwidth = $factor * $width;
         $newheight = $factor * $height;
 
-        $dstimg = imagecreatetruecolor($newwidth, $newheight);
+        $dstimg = imagecreatetruecolor((int)$newwidth, (int)$newheight);
         if (!$dstimg)
             return false;
 
@@ -147,7 +139,7 @@ class PhotoModel extends \Asatru\Database\Model {
                 break;
             case IMAGETYPE_JPEG:
                 $srcimage = imagecreatefromjpeg($srcfile);
-                imagecopyresampled($dstimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+                imagecopyresampled($dstimg, $srcimage, 0, 0, 0, 0, (int)$newwidth, (int)$newheight, $width, $height);
                 static::correctImageRotation($srcfile, $dstimg);
                 imagejpeg($dstimg, $basefile . "_thumb." . $fileext);
                 break;
@@ -193,12 +185,15 @@ class PhotoModel extends \Asatru\Database\Model {
                 throw new \Exception(__('app.post_invalid_file_type', ['filetype' => $fileExt]));
             }
 
-            PhotoModel::raw('INSERT INTO `' . self::tableName() . '` (title, name, tags, photo_thumb, photo_full) VALUES(?, ?, ?, ?, ?);', [
+            $removal_token = md5(random_bytes(55) . date('Y-m-d H:m:i'));
+
+            PhotoModel::raw('INSERT INTO `' . self::tableName() . '` (title, name, tags, photo_thumb, photo_full, removal_token) VALUES(?, ?, ?, ?, ?, ?);', [
                 $title,
                 $name,
                 trim(strtolower($tags)),
                 $newName . '_thumb' . '.' . $fileExt,
-                $newName . '.' . $fileExt
+                $newName . '.' . $fileExt,
+                $removal_token
             ]);
 
             $last_item = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY id DESC LIMIT 1')->first();
@@ -215,7 +210,7 @@ class PhotoModel extends \Asatru\Database\Model {
                 TagsModel::addTag(trim(strtolower($tag)));
             }
 
-            return $last_item->get('id');
+            return $last_item;
         } catch (Exception $e) {
             throw $e;
         }
@@ -298,6 +293,33 @@ class PhotoModel extends \Asatru\Database\Model {
             ])->first();
 
             return $photo;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $id
+     * @param $token
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function removePhoto($id, $token)
+    {
+        try {
+            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id = ? AND removal_token = ? LIMIT 1', [
+                $id,
+                $token
+            ])->first();
+
+            if (!$photo) {
+                throw new \Exception(__('app.photo_not_found'));
+            }
+
+            PhotoModel::raw('DELETE FROM `' . self::tableName() . '` WHERE id = ? AND removal_token = ?', [
+                $id,
+                $token
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }

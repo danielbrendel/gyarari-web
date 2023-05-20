@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1843a74fb2df3054aa5f524a8c58394",
+    "content-hash": "53f29fc47dbd16bdb6f03995409d6483",
     "packages": [
         {
             "name": "danielbrendel/asatru-php-framework",

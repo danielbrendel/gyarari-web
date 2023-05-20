@@ -16,7 +16,9 @@
 
                 <div class="tags">
                     @foreach ($tags as $tag)
-                        <div class="tag" onclick="location.href = window.location.origin + '/search?text={{ $tag }}'">{{ $tag }}</div>
+                        @if (strlen($tag) > 0)
+                            <div class="tag" onclick="location.href = window.location.origin + '/search?text={{ $tag }}'">{{ $tag }}</div>
+                        @endif
                     @endforeach
                 </div>
 			</div>

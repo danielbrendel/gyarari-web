@@ -38,6 +38,7 @@
             $this->database->add('tags VARCHAR(1024) NOT NULL');
             $this->database->add('photo_thumb VARCHAR(1024) NOT NULL');
             $this->database->add('photo_full VARCHAR(1024) NOT NULL');
+            $this->database->add('removal_token VARCHAR(1024) NOT NULL');
             $this->database->add('created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
             $this->database->create();
         }
