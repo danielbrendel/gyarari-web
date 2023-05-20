@@ -1,4 +1,4 @@
-<div class="header" style="background-image: url('{{ asset('img/header.jpg') }}');">
+<div class="header" style="background-image: url('{{ UtilsModule::getRandomHeaderImage() }}');">
     <div class="header-overlay">
         <div class="container">
             <div class="columns">
