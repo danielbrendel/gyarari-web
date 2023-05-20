@@ -41,5 +41,8 @@ return [
 	'search_placeholder' => 'Enter a phrase',
 	'search_submit' => 'Search',
 	'photo_removed' => 'The photo has been successfully removed',
-	'photo_not_found' => 'Photo was not found'
+	'photo_not_found' => 'Photo was not found',
+	'load_more' => 'Load more',
+	'no_more_items' => 'No more items',
+	'photo_by' => 'Photo by {name}'
 ];

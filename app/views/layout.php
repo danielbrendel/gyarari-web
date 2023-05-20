@@ -37,6 +37,10 @@
             document.addEventListener('DOMContentLoaded', function() {
                 window.vue.initNavbar();
 
+                window.vue.lang.load_more = '{{ __('app.load_more') }}';
+                window.vue.lang.no_more_items = '{{ __('app.no_more_items') }}';
+                window.vue.lang.photo_by = '{{ __('app.photo_by') }}';
+
                 if (document.getElementById('photos-recent')) {
                     window.recentPhotosPaginate = null;
                     window.vue.queryRecentPhotos();
