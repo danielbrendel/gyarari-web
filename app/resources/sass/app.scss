@@ -252,6 +252,32 @@ input[type=submit] {
     margin-bottom: 20px;
 }
 
+#photos-search {
+    margin-top: 35px;
+}
+
+.tags {
+    margin-top: 40px;
+}
+
+.tag {
+    position: relative;
+    display: inline-block;
+    min-width: 100px;
+    background-color: rgba(250, 250, 250, 0.6) !important;
+    border: 1px solid rgb(200, 200, 200);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    border-radius: 35px !important;
+}
+
+.tag:hover {
+    background-color: rgba(250, 250, 250, 1.0) !important;
+    cursor: pointer;
+}
+
 .footer {
     width: 100%;
     color: rgb(250, 250, 250);

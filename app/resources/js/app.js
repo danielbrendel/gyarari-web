@@ -61,18 +61,18 @@ window.vue = new Vue({
                 );
         },
 
-        queryRecentPhotos: function() {
+        queryRecentPhotos: function(target = 'recent', search = null, loadmore = true) {
             if (window.recentPhotosPaginate === null) {
-                document.getElementById('photos-recent').innerHTML = '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
+                document.getElementById('photos-' + target).innerHTML = '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
             } else {
-                document.getElementById('photos-recent').innerHTML += '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
+                document.getElementById('photos-' + target).innerHTML += '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
             }
 
             if (document.getElementById('loadmore')) {
                 document.getElementById('loadmore').remove();
             }
 
-            window.vue.ajaxRequest('post', window.location.origin + '/photos/query', { paginate: window.recentPhotosPaginate }, function(response){
+            window.vue.ajaxRequest('post', window.location.origin + '/photos/query', { paginate: window.recentPhotosPaginate, search: search }, function(response){
                 if (response.code == 200) {
                     if (document.getElementById('spinner')) {
                         document.getElementById('spinner').remove();
@@ -82,16 +82,18 @@ window.vue = new Vue({
                         response.data.forEach(function(elem, index) {
                             let html = window.vue.renderPhotoPreview(elem);
 
-                            document.getElementById('photos-recent').innerHTML += html;
+                            document.getElementById('photos-' + target).innerHTML += html;
                         });
 
                         window.recentPhotosPaginate = response.data[response.data.length - 1].id;
 
-                        if (!response.last) {
-                            document.getElementById('photos-recent').innerHTML += '<div id="loadmore"><center><a class="button is-link" href="javascript:void(0);" onclick="window.vue.queryRecentPhotos();">' + window.vue.lang.load_more + '</a></center></div>';
+                        if (loadmore) {
+                            if (!response.last) {
+                                document.getElementById('photos-' + target).innerHTML += '<div id="loadmore"><center><a class="button is-link" href="javascript:void(0);" onclick="window.vue.queryRecentPhotos(\'' + target + '\', '  + ((search !== null) ? '\'' + search + '\'' : 'null') + ', ' + ((loadmore) ? 'true' : 'false') + ');">' + window.vue.lang.load_more + '</a></center></div>';
+                            }
                         }
                     } else {
-                        document.getElementById('photos-recent').innerHTML += '<div><center><br/>' + window.vue.lang.no_more_items + '</center></div>';
+                        document.getElementById('photos-' + target).innerHTML += '<div><center><br/>' + window.vue.lang.no_more_items + '</center></div>';
                     }
                 }
             });

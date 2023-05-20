@@ -44,9 +44,10 @@ class IndexController extends BaseController {
 		try {
 			$paginate = $request->params()->query('paginate', null);
 			$random = $request->params()->query('random', false);
+			$search = $request->params()->query('search', null);
 
 			if ($random == false) {
-				$photos = PhotoModel::queryPhotos($paginate);
+				$photos = PhotoModel::queryPhotos($paginate, $search);
 			} else {
 				$photos = PhotoModel::queryRandom();
 			}

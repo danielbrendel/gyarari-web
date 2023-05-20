@@ -41,6 +41,10 @@
                     window.vue.queryRecentPhotos();
                 } else if (document.getElementById('photos-random')) {
                     window.vue.queryRandomPhotos();
+                } else if (document.getElementById('photos-search')) {
+                    @if (isset($_GET['text']))
+                        document.getElementById('search-submit').click();
+                    @endif
                 }
             });
         </script>

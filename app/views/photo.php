@@ -16,7 +16,7 @@
 
                 <div class="tags">
                     @foreach ($tags as $tag)
-                        <div class="tag">{{ $tag }}</div>
+                        <div class="tag" onclick="location.href = window.location.origin + '/search?text={{ $tag }}'">{{ $tag }}</div>
                     @endforeach
                 </div>
 			</div>

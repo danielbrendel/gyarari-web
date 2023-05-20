@@ -9,7 +9,7 @@
 				<div class="field">
 					<label class="label">{{ __('app.search_hint') }}</label>
 					<p class="control has-icons-left">
-						<input class="input" type="text" placeholder="{{ __('app.search_placeholder') }}">
+						<input class="input" type="text" id="search-input" placeholder="{{ __('app.search_placeholder') }}" value="{{ (isset($_GET['text'])) ? $_GET['text'] : '' }}">
 						<span class="icon is-small is-left">
 							<i class="fas fa-search"></i>
 						</span>
@@ -18,7 +18,7 @@
 
 				<div class="field">
 					<div class="control">
-						<a class="input button is-link">{{ __('app.search_submit') }}</a>
+						<a class="input button is-link" id="search-submit" onclick="window.recentPhotosPaginate = null; window.vue.queryRecentPhotos('search', document.getElementById('search-input').value);">{{ __('app.search_submit') }}</a>
 					</div>
 				</div>
 
@@ -26,7 +26,7 @@
 
 				<div class="tags">
 					@foreach ($tags as $tag)
-						<div class="tag">{{ $tag->get('name') }}</div>
+						<div class="tag" onclick="location.href = window.location.origin + '/search?text={{ $tag->get('name') }}'">{{ $tag->get('name') }}</div>
 					@endforeach
 				</div>
 			</div>
