@@ -1,20 +1,17 @@
 <?php
 
-/*
-    Asatru PHP - Example migration
-*/
-
 /**
- * Example migration class
+ * Class CaptchaModel_Migration
  */
-class Example_migration_Migration {
+class CaptchaModel_Migration
+{
     private $database = null;
     private $connection = null;
 
     /**
-     * Construct class and store PDO connection handle
+     * Store the PDO connection handle
      * 
-     * @param \PDO $pdo
+     * @param \PDO $pdo The PDO connection handle
      * @return void
      */
     public function __construct($pdo)
@@ -29,10 +26,11 @@ class Example_migration_Migration {
      */
     public function up()
     {
-        $this->database = new Asatru\Database\Migration('example_migration', $this->connection);
+        $this->database = new Asatru\Database\Migration('captcha', $this->connection);
         $this->database->drop();
         $this->database->add('id INT NOT NULL AUTO_INCREMENT PRIMARY KEY');
-        $this->database->add('text VARCHAR(260) NULL DEFAULT \'Test\'');
+        $this->database->add('hash VARCHAR(512) NOT NULL');
+        $this->database->add('sum VARCHAR(512) NOT NULL');
         $this->database->add('created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
         $this->database->create();
     }
@@ -44,7 +42,7 @@ class Example_migration_Migration {
      */
     public function down()
     {
-        $this->database = new Asatru\Database\Migration('example_migration', $this->connection);
-        $this->database->drop();
+        if ($this->database)
+            $this->database->drop();
     }
 }
