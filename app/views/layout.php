@@ -29,6 +29,7 @@
             {%content%}
 
             @include('footer.php')
+            @include('scroller.php')
         </div>
 
         <script src="{{ asset('js/app.js', true) }}"></script>
