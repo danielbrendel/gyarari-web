@@ -299,6 +299,25 @@ class PhotoModel extends \Asatru\Database\Model {
     }
 
     /**
+     * @return string
+     * @throws \Exception
+     */
+    public static function getInitialPhoto()
+    {
+        try {
+            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY id ASC LIMIT 1')->first();
+
+            if ($photo) {
+                return asset('img/photos/' . $photo->get('photo_thumb'));
+            }
+
+            return '';
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * @param $id
      * @param $token
      * @return mixed
