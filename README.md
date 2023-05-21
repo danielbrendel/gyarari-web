@@ -17,10 +17,13 @@ to fit a specific theme. For a list of features see below.
 - Random photos
 - Search photos
 - Upload photos
+- Share photos
 - Hashtag system
 - Social links
 - Info E-Mail
 - Captcha system
+- Reporting system
+- Pages system
 
 ## System requirements
 - PHP ^8.0
