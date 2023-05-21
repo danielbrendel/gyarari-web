@@ -46,6 +46,7 @@
                 window.vue.lang.no_more_items = '{{ __('app.no_more_items') }}';
                 window.vue.lang.photo_by = '{{ __('app.photo_by') }}';
                 window.vue.lang.copiedToClipboard = '{{ __('app.copiedToClipboard') }}';
+                window.vue.lang.reportSuccess = '{{ __('app.reportSuccess') }}';
 
                 if (document.getElementById('photos-recent')) {
                     window.recentPhotosPaginate = null;

@@ -18,6 +18,7 @@ window.vue = new Vue({
             no_more_items: 'No more items',
             photo_by: 'Photo by <a href="{link}">{name}</a>',
             copiedToClipboard: 'Text has been copied to clipboard!',
+            reportSuccess: 'The item has been reported',
         }
     },
 
@@ -163,6 +164,14 @@ window.vue = new Vue({
 
                 elem.submit();
             }
+        },
+
+        reportPhoto: function(id) {
+            window.vue.ajaxRequest('get', window.location.origin + '/photo/' + id + '/report', {}, function(response) {
+                if (response.code == 200) {
+                    alert(window.vue.lang.reportSuccess);
+                }
+            });
         },
 
         togglePhotoOptions: function(elem) {

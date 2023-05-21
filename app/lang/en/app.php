@@ -52,4 +52,6 @@ return [
 	'share_email' => 'Share via E-Mail',
 	'share_sms' => 'Share via SMS',
 	'share_clipboard' => 'Copy to clipboard',
+	'report_item' => 'Report',
+	'reportSuccess' => 'The item has been reported',
 ];

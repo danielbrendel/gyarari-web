@@ -34,6 +34,10 @@
                                     <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('{{ url('/photo/' . $photo->get('slug')) }} - {{ $photo->get('title') }}'); window.vue.togglePhotoOptions(document.getElementById('photo-options-{{ $photo->get('id') }}'));" class="dropdown-item">
                                         <i class="far fa-copy"></i>&nbsp;{{ __('app.share_clipboard') }}
                                     </a>
+                                    <hr class="dropdown-divider"/>
+                                    <a href="javascript:void(0)" onclick="window.vue.reportPhoto('{{ $photo->get('id') }}'); window.vue.togglePhotoOptions(document.getElementById('photo-options-{{ $photo->get('id') }}'));" class="dropdown-item">
+                                        <i class="far fa-flag"></i>&nbsp;{{ __('app.report_item') }}
+                                    </a>
                                 </div>
                             </div>
                         </div>

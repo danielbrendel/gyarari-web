@@ -50,4 +50,6 @@ return [
 	'share_email' => 'Per E-Mail senden',
 	'share_sms' => 'Per SMS teilen',
 	'share_clipboard' => 'Zwischenablage',
+	'report_item' => 'Melden',
+	'reportSuccess' => 'Der Post wurde gemeldet',
 ];

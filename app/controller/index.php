@@ -82,6 +82,35 @@ class IndexController extends BaseController {
 	}
 
 	/**
+	 * Handles URL: /photo/{id}/report
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\JsonHandler
+	 */
+	public function reportPhoto($request)
+	{
+		try {
+			$photo = $request->arg('id', null);
+
+			$item = PhotoModel::where('id', '=', $photo)->first();
+			if (!$item) {
+				throw new \Exception('Photo not found: ' . $photo);
+			}
+
+			ReportModel::addReport($photo);
+
+			return json([
+				'code' => 200,
+			]);
+		} catch (\Exception $e) {
+			return json([
+				'code' => 500,
+				'msg' => $e->getMessage()
+			]);
+		}
+	}
+
+	/**
 	 * Handles URL: /recent
 	 * 
 	 * @param Asatru\Controller\ControllerArg $request
