@@ -192,5 +192,9 @@ window.vue = new Vue({
             document.body.removeChild(el);
             alert(this.lang.copiedToClipboard);
         },
+
+        getSpinnerCode: function() {
+            return `<i class="fas fa-spinner fa-spin"></i>`;
+        },
     }
 });
