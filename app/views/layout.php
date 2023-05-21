@@ -35,6 +35,7 @@
 
             @include('footer.php')
             @include('scroller.php')
+            @include('cookies.php')
         </div>
 
         <script src="{{ asset('js/app.js', true) }}"></script>
@@ -47,6 +48,14 @@
                 window.vue.lang.photo_by = '{{ __('app.photo_by') }}';
                 window.vue.lang.copiedToClipboard = '{{ __('app.copiedToClipboard') }}';
                 window.vue.lang.reportSuccess = '{{ __('app.reportSuccess') }}';
+
+                let cookieNotice = document.getElementById('cookie-notice');
+                if (cookieNotice) {
+                    let cookieValue = window.vue.getCookie('cookie-notice', 0);
+                    if (cookieValue != 0) {
+                        cookieNotice.style.display = 'none';
+                    }
+                }
 
                 if (document.getElementById('photos-recent')) {
                     window.recentPhotosPaginate = null;
