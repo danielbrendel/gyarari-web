@@ -4,7 +4,13 @@
         <div class="column is-8">
             <div class="footer-frame">
                 <div class="footer-content">
-                    &copy; {{ date('Y') }} by {{ env('APP_AUTHOR') }}
+                    <div>&copy; {{ date('Y') }} by {{ env('APP_AUTHOR') }}</div>
+
+                    <div>
+                        @foreach (PageModel::getLinkablePages() as $page)
+                            <a href="{{ $page->url }}">{{ $page->label }}</a>&nbsp;&nbsp;
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>

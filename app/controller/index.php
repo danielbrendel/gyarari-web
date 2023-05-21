@@ -263,4 +263,26 @@ class IndexController extends BaseController {
 			return redirect('/');
 		}
 	}
+
+	/**
+	 * Handles URL: /page/{ident}
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\ViewHandler
+	 */
+	public function viewPage($request)
+	{
+		try {
+			$ident = $request->arg('ident', null);
+			
+			$pageItem = PageModel::getPage($ident);
+
+			return parent::view(['content', 'page'], [
+				'page' => $pageItem
+			]);
+		} catch (\Exception $e) {
+			FlashMessage::setMsg('error', $e->getMessage());
+			return redirect('/');
+		}
+	}
 }

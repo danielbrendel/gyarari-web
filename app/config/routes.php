@@ -26,5 +26,6 @@ return [
     array('/photo/{id}/report', 'ANY', 'index@reportPhoto'),
     array('/photo/{id}/remove/{token}', 'ANY', 'index@removePhoto'),
     array('/photos/query', 'ANY', 'index@queryPhotos'),
+    array('/page/{ident}', 'GET', 'index@viewPage'),
     array('$404', 'ANY', 'error404@index')
 ];
