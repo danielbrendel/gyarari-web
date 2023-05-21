@@ -6,7 +6,7 @@
 			<div class="content-section">
 				<h3>{{ $photo->get('title') }}</h3>
 
-                <p>{!! __('app.photo_uploaded_by', ['name' => $photo->get('name'), 'link' => url('/search?text=' . $photo->get('name')), 'date' => $diffForHumans]) !!}</p>
+                <p>{!! __('app.photo_uploaded_by', ['name' => $photo->get('name'), 'link' => url('/search?text=' . $photo->get('name')), 'date' => $diffForHumans, 'count' => $viewCount]) !!}</p>
 
                 <div>
                     <a href="{{ asset('img/photos/' . $photo->get('photo_full')) }}" target="_blank">

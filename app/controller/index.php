@@ -64,7 +64,8 @@ class IndexController extends BaseController {
 					'photo_thumb' => $photo->get('photo_thumb'),
 					'photo_full' => $photo->get('photo_full'),
 					'created_at' => $photo->get('created_at'),
-					'diffForHumans' => (new Carbon($photo->get('created_at')))->diffForHumans()
+					'diffForHumans' => (new Carbon($photo->get('created_at')))->diffForHumans(),
+					'viewCount' => ViewCountModel::viewForItem($photo->get('id'))
 				];
 			}
 
@@ -197,11 +198,13 @@ class IndexController extends BaseController {
 			$tags = explode(' ', $photo->get('tags'));
 
 			$diffForHumans = (new Carbon($photo->get('created_at')))->diffForHumans();
+			$viewCount = ViewCountModel::viewForItem($photo->get('id'));
 
 			return parent::view(['content', 'photo'], [
 				'photo' => $photo,
 				'tags' => $tags,
-				'diffForHumans' => $diffForHumans
+				'diffForHumans' => $diffForHumans,
+				'viewCount' => $viewCount
 			]);
 		} catch (\Exception $e) {
 			FlashMessage::setMsg('error', $e->getMessage());

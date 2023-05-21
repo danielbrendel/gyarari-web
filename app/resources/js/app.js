@@ -16,7 +16,7 @@ window.vue = new Vue({
         lang: {
             load_more: 'Load more',
             no_more_items: 'No more items',
-            photo_by: 'Photo by {name}',
+            photo_by: 'Photo by <a href="{link}">{name}</a>',
         }
     },
 
@@ -136,7 +136,7 @@ window.vue = new Vue({
         },
 
         renderPhotoPreview: function(elem) {
-            let info_by = window.vue.lang.photo_by.replace('{name}', elem.name);
+            let info_by = window.vue.lang.photo_by.replace('{name}', elem.name).replace('{link}', window.location.origin + '/search?text=' + elem.name);
 
             let html = `
                 <a href="` + window.location.origin + '/photo/' + elem.slug + `">
@@ -144,13 +144,13 @@ window.vue = new Vue({
                         <div class="photo-info-overlay fade-in" id="photo-overlay-` + elem.id + `">
                             <div class="photo-info-data">
                                 <div>` + info_by + `</div>
-                                <div>` + elem.diffForHumans + `</div>
+                                <div>` + elem.diffForHumans + ` &bull; <i class="far fa-eye"></i> ` + String(elem.viewCount) + `</div>
                             </div>
                         </div>
                     </div>
                 </a>
             `;
-
+            
             return html;
         },
 

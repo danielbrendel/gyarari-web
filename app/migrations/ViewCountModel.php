@@ -3,7 +3,7 @@
 /**
  * This class specifies a migration
  */
-class PhotoModel_Migration {
+class ViewCountModel_Migration {
     private $database = null;
     private $connection = null;
 
@@ -25,16 +25,11 @@ class PhotoModel_Migration {
      */
     public function up()
     {
-        $this->database = new Asatru\Database\Migration('photo', $this->connection);
+        $this->database = new Asatru\Database\Migration('viewcount', $this->connection);
         $this->database->drop();
         $this->database->add('id INT NOT NULL AUTO_INCREMENT PRIMARY KEY');
-        $this->database->add('slug VARCHAR(1024) NULL');
-        $this->database->add('title VARCHAR(1024) NOT NULL');
-        $this->database->add('name VARCHAR(1024) NOT NULL');
-        $this->database->add('tags VARCHAR(1024) NOT NULL');
-        $this->database->add('photo_thumb VARCHAR(1024) NOT NULL');
-        $this->database->add('photo_full VARCHAR(1024) NOT NULL');
-        $this->database->add('removal_token VARCHAR(1024) NOT NULL');
+        $this->database->add('photo INT NOT NULL');
+        $this->database->add('token VARCHAR(1024) NOT NULL');
         $this->database->add('created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
         $this->database->create();
     }

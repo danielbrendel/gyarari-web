@@ -30,7 +30,7 @@ return [
 	'error' => 'Fehler',
 	'info' => 'Info',
 	'post_invalid_file_type' => 'Die angegebene Datei ist ungültig: {filetype}',
-	'photo_uploaded_by' => 'Foto hochgeladen von <a href="{link}">{name}</a> &bull; {date}',
+	'photo_uploaded_by' => 'Foto hochgeladen von <a href="{link}">{name}</a> &bull; {date} &bull; <i class="far fa-eye"></i> {count} mal gesehen',
 	'recent_title' => 'Zuletzt hochgeladene Fotos',
 	'random_title' => 'Zufällig ausgewählte Fotos aus der Community',
 	'search_title' => 'Suche nach Fotos',
