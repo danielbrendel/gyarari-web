@@ -17,6 +17,7 @@ window.vue = new Vue({
             load_more: 'Load more',
             no_more_items: 'No more items',
             photo_by: 'Photo by <a href="{link}">{name}</a>',
+            copiedToClipboard: 'Text has been copied to clipboard!',
         }
     },
 
@@ -162,6 +163,25 @@ window.vue = new Vue({
 
                 elem.submit();
             }
+        },
+
+        togglePhotoOptions: function(elem) {
+            if (elem.classList.contains('is-active')) {
+                elem.classList.remove('is-active');
+                window.optionsClickCount = 0;
+            } else {
+                elem.classList.add('is-active');
+            }
+        },
+
+        copyToClipboard: function(text) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            alert(this.lang.copiedToClipboard);
         },
     }
 });

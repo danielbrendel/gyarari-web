@@ -42,5 +42,12 @@ return [
 	'photo_not_found' => 'Das Foto konnte nicht gefunden werden',
 	'load_more' => 'Mehr laden',
 	'no_more_items' => 'Keine weiteren Posts',
-	'photo_by' => 'Foto von {name}'
+	'photo_by' => 'Foto von {name}',
+	'copiedToClipboard' => 'Text wurde in die Zwischenablage kopiert!',
+	'share_whatsapp' => 'Mit WhatsApp teilen',
+	'share_twitter' => 'Bei Twitter posten',
+	'share_facebook' => 'Bei Facebook posten',
+	'share_email' => 'Per E-Mail senden',
+	'share_sms' => 'Per SMS teilen',
+	'share_clipboard' => 'Zwischenablage',
 ];

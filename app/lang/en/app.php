@@ -44,5 +44,12 @@ return [
 	'photo_not_found' => 'Photo was not found',
 	'load_more' => 'Load more',
 	'no_more_items' => 'No more items',
-	'photo_by' => 'Photo by {name}'
+	'photo_by' => 'Photo by {name}',
+	'copiedToClipboard' => 'Text has been copied to clipboard!',
+	'share_whatsapp' => 'Share via WhatsApp',
+	'share_twitter' => 'Share via Twitter',
+	'share_facebook' => 'Share via Facebook',
+	'share_email' => 'Share via E-Mail',
+	'share_sms' => 'Share via SMS',
+	'share_clipboard' => 'Copy to clipboard',
 ];

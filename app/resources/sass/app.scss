@@ -265,6 +265,29 @@ input[type=submit] {
     color: rgb(200, 200, 200);
 }
 
+.photo-options {
+    float: right;
+    top: 7px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    background-color: rgb(220, 168, 125);
+}
+
+a.dropdown-item {
+    color: rgb(50, 50, 50);
+}
+
+a.dropdown-item:hover {
+    color: rgb(50, 50, 50);
+    text-decoration: none;
+}
+
+a.dropdown-item:hover {
+    background-color: rgb(189, 143, 107);
+}
+
 .fade-in {
 	opacity: 1;
 	animation-name: fadeInOpacity;

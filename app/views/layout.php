@@ -45,6 +45,7 @@
                 window.vue.lang.load_more = '{{ __('app.load_more') }}';
                 window.vue.lang.no_more_items = '{{ __('app.no_more_items') }}';
                 window.vue.lang.photo_by = '{{ __('app.photo_by') }}';
+                window.vue.lang.copiedToClipboard = '{{ __('app.copiedToClipboard') }}';
 
                 if (document.getElementById('photos-recent')) {
                     window.recentPhotosPaginate = null;
@@ -59,6 +60,22 @@
                     document.getElementById('upload-name').value = window.vue.getCookie('upload-name');
                     document.getElementById('upload-email').value = window.vue.getCookie('upload-email');
                 }
+
+                @if (isset($photo))
+                if (document.getElementsByClassName('photo-options').length > 0) {
+                    window.optionsClickCount = 0;
+                    document.getElementsByTagName('html')[0].addEventListener('click', function() {
+                        if (document.getElementById('photo-options-{{ $photo->get('id') }}').classList.contains('is-active')) {
+                            window.optionsClickCount++;
+
+                            if (window.optionsClickCount >= 2) {
+                                window.vue.togglePhotoOptions(document.getElementById('photo-options-{{ $photo->get('id') }}'));
+                                window.optionsClickCount = 0;
+                            }
+                        }
+                    });
+                }
+                @endif
             });
         </script>
     </body>
