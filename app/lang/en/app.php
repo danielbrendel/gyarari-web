@@ -54,6 +54,5 @@ return [
 	'share_clipboard' => 'Copy to clipboard',
 	'report_item' => 'Report',
 	'reportSuccess' => 'The item has been reported',
-	'cookie_notice_ok' => 'Got it!',
-	'install_app' => 'Install App!'
+	'cookie_notice_ok' => 'Got it!'
 ];

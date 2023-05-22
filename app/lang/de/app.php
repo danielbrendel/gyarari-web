@@ -52,6 +52,5 @@ return [
 	'share_clipboard' => 'Zwischenablage',
 	'report_item' => 'Melden',
 	'reportSuccess' => 'Der Post wurde gemeldet',
-	'cookie_notice_ok' => 'Alles klar!',
-	'install_app' => 'App installieren!'
+	'cookie_notice_ok' => 'Alles klar!'
 ];
