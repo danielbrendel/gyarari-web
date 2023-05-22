@@ -15,6 +15,8 @@
         <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}"/>
 
         <link rel="stylesheet" type="text/css" href="{{ asset('css/bulma.css') }}"/>
+
+        <link rel="manifest" href="{{ asset('manifest.json') }}"/>
         
         <title>{{ env('APP_TITLE') }}</title>
 
@@ -40,6 +42,20 @@
 
         <script src="{{ asset('js/app.js', true) }}"></script>
         <script>
+            @if (env('APP_ENABLEPWA'))
+            window.onload = function() {
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('./serviceworker.js', { scope: '/' })
+                        .then(function(registration){
+                            window.serviceWorkerEnabled = true;
+                        }).catch(function(err){
+                            window.serviceWorkerEnabled = false;
+                            console.error(err);
+                        });
+                }
+            };
+            @endif
+
             document.addEventListener('DOMContentLoaded', function() {
                 window.vue.initNavbar();
 
