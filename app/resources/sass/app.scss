@@ -144,6 +144,10 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
     text-decoration: underline;
 }
 
+.content-section a.button:hover {
+    text-decoration: none;
+}
+
 .file-name {
     max-width: unset !important;
 }

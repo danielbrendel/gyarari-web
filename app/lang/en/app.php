@@ -62,5 +62,5 @@ return [
 	'newsletter_add' => 'Subscribe',
 	'newsletter_subscribed' => 'You have successfully subscribed to our newsletter',
 	'newsletter_unsubscribed' => 'You have successfully unsubscribed from our newsletter',
-	'newsletter_mail_subject' => 'Weekly Newsletter'
+	'newsletter_mail_subject' => 'Weekly Newsletter - Week {week}'
 ];

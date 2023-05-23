@@ -11,10 +11,18 @@
 <div>
     @foreach ($photos as $photo)
         <div>
-            <img src="{{ asset('img/photos/' . $photo->get('photo_thumb')) }}" alt="Foto"/><br/><br/>
+            <a href="{{ url('/photo/' . $photo->get('id')) }}">
+                <img src="{{ asset('img/photos/' . $photo->get('photo_thumb')) }}" alt="Photo"/>
+            </a>
+
+            <br/><br/>
         </div>
     @endforeach
 </div>
+
+<p>
+    Möchtest Du noch mehr Fotos sehen? Dann klicke einfach <a href="{{ url('/recent') }}">hier</a>.
+</p>
 
 <p>
     Falls Du unseren Newsletter nicht mehr erhalten möchtest, kannst du dich

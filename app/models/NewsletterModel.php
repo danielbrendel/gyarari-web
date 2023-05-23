@@ -55,9 +55,9 @@ class NewsletterModel extends \Asatru\Database\Model {
 
             $emails = NewsletterModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE calendar_week <> ? LIMIT ' . $limit, [$calendar_week]);
             foreach ($emails as $email) {
-                $message = view('mail/mail_layout', ['mail', 'mail/' . getLocale() . '/mail_newsletter'], ['photos' => $photos, 'email' => $email->get('email'), 'token' => $email->get('unsubscribe_token')])->out(true);
+                $message = view('mail/mail_layout', ['mail', 'mail/' . env('APP_LANG', 'en') . '/mail_newsletter'], ['photos' => $photos, 'email' => $email->get('email'), 'token' => $email->get('unsubscribe_token')])->out(true);
 
-                MailerModule::sendMail($email->get('email'), __('app.newsletter_mail_subject'), $message);
+                MailerModule::sendMail($email->get('email'), __('app.newsletter_mail_subject', ['week' => $calendar_week]), $message);
 
                 NewsletterModel::raw('UPDATE `' . self::tableName() . '` SET calendar_week = ? WHERE id = ?', [
                     $calendar_week,

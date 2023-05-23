@@ -192,7 +192,7 @@ class IndexController extends BaseController {
 
 			$photo = PhotoModel::store($title, $name, $tags);
 
-			$message = view('mail/mail_layout', ['mail', 'mail/' . getLocale() . '/mail_upload'], [
+			$message = view('mail/mail_layout', ['mail', 'mail/' . env('APP_LANG', 'en') . '/mail_upload'], [
 				'name' => $name,
 				'link' => url('/photo/' . $photo->get('id')),
 				'removal' => url('/photo/' . $photo->get('id') . '/remove/' . $photo->get('removal_token'))
