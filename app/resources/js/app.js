@@ -83,6 +83,13 @@ window.vue = new Vue({
             if (window.recentPhotosPaginate === null) {
                 document.getElementById('photos-' + target).innerHTML = '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
             } else {
+                let oldFades = document.getElementsByClassName('photo');
+                for (let i = 0; i < oldFades.length; i++) {
+                    if (oldFades[i].classList.contains('fade-in')) {
+                        oldFades[i].classList.remove('fade-in');
+                    }
+                }
+
                 document.getElementById('photos-' + target).innerHTML += '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
             }
 
@@ -142,7 +149,7 @@ window.vue = new Vue({
 
             let html = `
                 <a href="` + window.location.origin + '/photo/' + elem.slug + `">
-                    <div class="photo" style="background-image: url('` + window.location.origin + '/img/photos/' + elem.photo_thumb + `');" onmouseover="document.getElementById('photo-overlay-` + elem.id + `').style.display = 'block';" onmouseout="document.getElementById('photo-overlay-` + elem.id + `').style.display = 'none';">
+                    <div class="photo fade-in" style="background-image: url('` + window.location.origin + '/img/photos/' + elem.photo_thumb + `');" onmouseover="document.getElementById('photo-overlay-` + elem.id + `').style.display = 'block';" onmouseout="document.getElementById('photo-overlay-` + elem.id + `').style.display = 'none';">
                         <div class="photo-info-overlay fade-in" id="photo-overlay-` + elem.id + `">
                             <div class="photo-info-data">
                                 <div>` + info_by + `</div>

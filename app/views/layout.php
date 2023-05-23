@@ -28,7 +28,7 @@
         <script src="{{ asset('js/fontawesome.js') }}"></script>
     </head>
 
-    <body>
+    <body style="background-image: url('{{ asset('img/body.jpg') }}');">
         <div id="app">
             @include('navbar.php')
             @include('header.php')

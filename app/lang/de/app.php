@@ -56,7 +56,7 @@ return [
 	'cookie_notice_ok' => 'Alles klar!',
 	'newsletter_title' => 'Unseren Newsletter abonnieren!',
 	'newsletter_info' => 'Möchtest Du immer die letzten Fotos der Woche in deinem Postfach? Dann abonniere jetzt.',
-	'newsletter_email' => 'Gib eine gütlige E-Mail Adresse ein',
+	'newsletter_email' => 'Gib eine gültige E-Mail Adresse ein',
 	'newsletter_add' => 'Abonnieren',
 	'newsletter_subscribed' => 'Du hast unseren Newsletter nun abonniert',
 	'newsletter_unsubscribed' => 'Du hast dich nun von unserem Newsletter abgemeldet',
