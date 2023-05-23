@@ -43,6 +43,57 @@ class ReportModel extends \Asatru\Database\Model {
     }
 
     /**
+     * @param $limit
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getReportPack($limit = 10)
+    {
+        try {
+            $items = ReportModel::raw('SELECT id, photo, COUNT(photo) AS count FROM `' . self::tableName() . '` GROUP BY photo ORDER BY count DESC LIMIT ' . $limit);
+            return $items;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $photo
+     * @return int
+     * @throws \Exception
+     */
+    public static function safe($photo)
+    {
+        try {
+            ReportModel::raw('DELETE FROM `' . self::tableName() . '` WHERE photo = ?', [$photo]);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $photo
+     * @return int
+     * @throws \Exception
+     */
+    public static function remove($photo)
+    {
+        try {
+            $item = PhotoModel::raw('SELECT * FROM `' . PhotoModel::tableName() . '` WHERE id = ? LIMIT 1', [$photo])->first();
+            if ($item) {
+                PhotoModel::raw('DELETE FROM `' . PhotoModel::tableName() . '` WHERE id = ?', [$photo]);
+
+                unlink(public_path() . '/img/photos/' . $item->get('photo_thumb'));
+                unlink(public_path() . '/img/photos/' . $item->get('photo_full'));
+            }
+
+            ReportModel::raw('DELETE FROM `' . self::tableName() . '` WHERE photo = ?', [$photo]);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Return the associated table name of the migration
      * 
      * @return string

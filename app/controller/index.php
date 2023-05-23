@@ -373,4 +373,137 @@ class IndexController extends BaseController {
 			]);
 		}
 	}
+
+	/**
+	 * Handles URL: /admin
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\ViewHandler|Asatru\View\RedirectHandler
+	 */
+	public function admin($request)
+	{
+		try {
+			$password = $request->params()->query('access', null);
+
+			if ($password !== env('APP_ACCESS_PASSWORD')) {
+				throw new \Exception('Access password mismatch');
+			}
+
+			$approvals = PhotoModel::getApprovalPending(env('APP_PHOTOPACKLIMIT'));
+			$reported = ReportModel::getReportPack(env('APP_PHOTOPACKLIMIT'));
+
+			return parent::view(['content', 'admin'], [
+				'access_token' => $password,
+				'approvals' => $approvals,
+				'reports' => $reported
+			]);
+		} catch (\Exception $e) {
+			FlashMessage::setMsg('error', $e->getMessage());
+			return redirect('/');
+		}
+	}
+
+	/**
+	 * Handles URL: /admin/photo/{id}/approve
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\RedirectHandler
+	 */
+	public function adminPhotoApprove($request)
+	{
+		try {
+			$password = $request->params()->query('access', null);
+
+			if ($password !== env('APP_ACCESS_PASSWORD')) {
+				throw new \Exception('Access password mismatch');
+			}
+
+			$photo = $request->arg('id', null);
+
+			PhotoModel::approve($photo);
+
+			return redirect('/admin?access=' . $password);
+		} catch (\Exception $e) {
+			FlashMessage::setMsg('error', $e->getMessage());
+			return redirect('/admin?access=' . $password);
+		}
+	}
+
+	/**
+	 * Handles URL: /admin/photo/{id}/decline
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\RedirectHandler
+	 */
+	public function adminPhotoDecline($request)
+	{
+		try {
+			$password = $request->params()->query('access', null);
+
+			if ($password !== env('APP_ACCESS_PASSWORD')) {
+				throw new \Exception('Access password mismatch');
+			}
+
+			$photo = $request->arg('id', null);
+
+			PhotoModel::decline($photo);
+
+			return redirect('/admin?access=' . $password);
+		} catch (\Exception $e) {
+			FlashMessage::setMsg('error', $e->getMessage());
+			return redirect('/admin?access=' . $password);
+		}
+	}
+
+	/**
+	 * Handles URL: /admin/photo/{id}/report/safe
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\RedirectHandler
+	 */
+	public function adminPhotoSafe($request)
+	{
+		try {
+			$password = $request->params()->query('access', null);
+
+			if ($password !== env('APP_ACCESS_PASSWORD')) {
+				throw new \Exception('Access password mismatch');
+			}
+
+			$photo = $request->arg('id', null);
+
+			ReportModel::safe($photo);
+
+			return redirect('/admin?access=' . $password);
+		} catch (\Exception $e) {
+			FlashMessage::setMsg('error', $e->getMessage());
+			return redirect('/admin?access=' . $password);
+		}
+	}
+
+	/**
+	 * Handles URL: /admin/photo/{id}/report/delete
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\RedirectHandler
+	 */
+	public function adminPhotoDelete($request)
+	{
+		try {
+			$password = $request->params()->query('access', null);
+
+			if ($password !== env('APP_ACCESS_PASSWORD')) {
+				throw new \Exception('Access password mismatch');
+			}
+
+			$photo = $request->arg('id', null);
+
+			ReportModel::remove($photo);
+
+			return redirect('/admin?access=' . $password);
+		} catch (\Exception $e) {
+			FlashMessage::setMsg('error', $e->getMessage());
+			return redirect('/admin?access=' . $password);
+		}
+	}
 }

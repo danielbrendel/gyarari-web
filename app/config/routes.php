@@ -30,5 +30,10 @@ return [
     array('/newsletter/subscribe', 'POST', 'index@subscribeNewsletter'),
     array('/newsletter/unsubscribe', 'ANY', 'index@unsubscribeNewsletter'),
     array('/newsletter/process', 'ANY', 'index@processNewsletter'),
+    array('/admin', 'GET', 'index@admin'),
+    array('/admin/photo/{id}/approve', 'ANY', 'index@adminPhotoApprove'),
+    array('/admin/photo/{id}/decline', 'ANY', 'index@adminPhotoDecline'),
+    array('/admin/photo/{id}/report/safe', 'ANY', 'index@adminPhotoSafe'),
+    array('/admin/photo/{id}/report/delete', 'ANY', 'index@adminPhotoDelete'),
     array('$404', 'ANY', 'error404@index')
 ];

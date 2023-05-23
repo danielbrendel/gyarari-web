@@ -15,6 +15,14 @@
     Link zum Löschen: <a href="{{ $removal }}">{{ $removal }}</a>
 </p>
 
+@if (env('APP_ENABLEPHOTOAPPROVAL'))
+<p>
+    Hinweis: Bevor dein Foto auf unserer Plattform veröffentlicht wird, muss es erst
+    von uns bewilligt werden. Wir prüfen dein Foto so schnell wie möglich. Allerdings
+    kann dies etwas Zeit in Anspruch nehmen.
+</p>
+@endif
+
 <p>
     Viele Grüße,<br/>
     {{ env('APP_NAME') }}

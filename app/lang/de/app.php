@@ -26,6 +26,7 @@ return [
 	'upload_choose_file' => 'Datei auswählen',
 	'upload_no_file_chosen' => 'Keine Datei ausgewählt...',
 	'upload_submit' => 'Posten',
+	'photo_shared_successfully' => 'Dein Foto wurde erfolgreich hochgeladen!',
 	'success' => 'Erfolg',
 	'error' => 'Fehler',
 	'info' => 'Info',

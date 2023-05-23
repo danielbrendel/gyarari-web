@@ -28,6 +28,7 @@ return [
 	'upload_choose_file' => 'Choose file',
 	'upload_no_file_chosen' => 'No file chosen...',
 	'upload_submit' => 'Submit',
+	'photo_shared_successfully' => 'Your photo has been uploaded!',
 	'success' => 'Success',
 	'error' => 'Error',
 	'info' => 'Info',

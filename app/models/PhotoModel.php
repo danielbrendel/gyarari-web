@@ -187,13 +187,16 @@ class PhotoModel extends \Asatru\Database\Model {
 
             $removal_token = md5(random_bytes(55) . date('Y-m-d H:m:i'));
 
-            PhotoModel::raw('INSERT INTO `' . self::tableName() . '` (title, name, tags, photo_thumb, photo_full, removal_token) VALUES(?, ?, ?, ?, ?, ?);', [
+            $approved = (env('APP_ENABLEPHOTOAPPROVAL')) ? 0 : 1;
+
+            PhotoModel::raw('INSERT INTO `' . self::tableName() . '` (title, name, tags, photo_thumb, photo_full, removal_token, approved) VALUES(?, ?, ?, ?, ?, ?, ?);', [
                 $title,
                 $name,
                 trim(strtolower($tags)),
                 $newName . '_thumb' . '.' . $fileExt,
                 $newName . '.' . $fileExt,
-                $removal_token
+                $removal_token,
+                $approved
             ]);
 
             $last_item = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY id DESC LIMIT 1')->first();
@@ -231,26 +234,26 @@ class PhotoModel extends \Asatru\Database\Model {
 
             if ($paginate !== null) {
                 if ($search_token !== null) {
-                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id < ? AND (title LIKE ? OR name LIKE ? OR tags LIKE ?) ORDER BY id DESC LIMIT ' . $limit, [
+                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 AND id < ? AND (title LIKE ? OR name LIKE ? OR tags LIKE ?) ORDER BY id DESC LIMIT ' . $limit, [
                         $paginate,
                         $search_token,
                         $search_token,
                         $search_token
                     ]);
                 } else {
-                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id < ? ORDER BY id DESC LIMIT ' . $limit, [
+                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 AND id < ? ORDER BY id DESC LIMIT ' . $limit, [
                         $paginate
                     ]);
                 }
             } else {
                 if ($search_token !== null) {
-                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE title LIKE ? OR name LIKE ? OR tags LIKE ? ORDER BY id DESC LIMIT ' . $limit, [
+                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 AND (title LIKE ? OR name LIKE ? OR tags LIKE ?) ORDER BY id DESC LIMIT ' . $limit, [
                         $search_token,
                         $search_token,
                         $search_token
                     ]);
                 } else {
-                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY id DESC LIMIT ' . $limit);
+                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 ORDER BY id DESC LIMIT ' . $limit);
                 }
             }
 
@@ -271,7 +274,7 @@ class PhotoModel extends \Asatru\Database\Model {
 
             $limit = env('APP_PHOTOPACKLIMIT', 20);
 
-            $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY RAND() DESC LIMIT ' . $limit);
+            $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 ORDER BY RAND() DESC LIMIT ' . $limit);
 
             return $photos;
         } catch (\Exception $e) {
@@ -287,7 +290,7 @@ class PhotoModel extends \Asatru\Database\Model {
     public static function getPhoto($id)
     {
         try {
-            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id = ? OR slug = ? LIMIT 1', [
+            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 AND (id = ? OR slug = ?) LIMIT 1', [
                 $id,
                 $id
             ])->first();
@@ -355,12 +358,64 @@ class PhotoModel extends \Asatru\Database\Model {
             $end_date = date('Y-m-d');
             $start_date = date('Y-m-d', strtotime('-7 days'));
 
-            $items = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE DATE(created_at) >= ? AND DATE(created_at) <= ? ORDER BY RAND() LIMIT ' . $limit, [
+            $items = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE DATE(created_at) >= ? AND DATE(created_at) <= ? AND approved = 1 ORDER BY RAND() LIMIT ' . $limit, [
                 $start_date,
                 $end_date
             ]);
 
             return $items;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $limit
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getApprovalPending($limit = 10)
+    {
+        try {
+            $items = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 0 ORDER BY id ASC LIMIT ' . $limit);
+            return $items;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $id
+     * @return void
+     * @throws \Exception
+     */
+    public static function approve($id)
+    {
+        try {
+            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id = ? AND approved = 0', [$id])->first();
+            if ($photo) {
+                PhotoModel::raw('UPDATE `' . self::tableName() . '` SET approved = 1 WHERE id = ?', [$id]);
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @param $id
+     * @return void
+     * @throws \Exception
+     */
+    public static function decline($id)
+    {
+        try {
+            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id = ? AND approved = 0', [$id])->first();
+            if ($photo) {
+                unlink(public_path() . '/img/photos/' . $photo->get('photo_full'));
+                unlink(public_path() . '/img/photos/' . $photo->get('photo_thumb'));
+
+                PhotoModel::raw('DELETE FROM `' . self::tableName() . '` WHERE id = ?', [$id]);
+            }
         } catch (\Exception $e) {
             throw $e;
         }
