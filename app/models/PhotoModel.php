@@ -345,6 +345,28 @@ class PhotoModel extends \Asatru\Database\Model {
     }
 
     /**
+     * @param $limit
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getWeekPhotos($limit = 10)
+    {
+        try {
+            $end_date = date('Y-m-d');
+            $start_date = date('Y-m-d', strtotime('-7 days'));
+
+            $items = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE DATE(created_at) >= ? AND DATE(created_at) <= ? ORDER BY RAND() LIMIT ' . $limit, [
+                $start_date,
+                $end_date
+            ]);
+
+            return $items;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * @param $id
      * @param $title
      * @return string

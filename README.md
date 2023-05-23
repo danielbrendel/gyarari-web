@@ -24,6 +24,7 @@ to fit a specific theme. For a list of features see below.
 - Captcha system
 - Reporting system
 - Pages system
+- Photo Newsletter
 
 ## System requirements
 - PHP ^8.0

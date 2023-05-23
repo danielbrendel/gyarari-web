@@ -27,5 +27,8 @@ return [
     array('/photo/{id}/remove/{token}', 'ANY', 'index@removePhoto'),
     array('/photos/query', 'ANY', 'index@queryPhotos'),
     array('/page/{ident}', 'GET', 'index@viewPage'),
+    array('/newsletter/subscribe', 'POST', 'index@subscribeNewsletter'),
+    array('/newsletter/unsubscribe', 'ANY', 'index@unsubscribeNewsletter'),
+    array('/newsletter/process', 'ANY', 'index@processNewsletter'),
     array('$404', 'ANY', 'error404@index')
 ];

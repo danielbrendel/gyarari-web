@@ -285,4 +285,92 @@ class IndexController extends BaseController {
 			return redirect('/');
 		}
 	}
+
+	/**
+	 * Handles URL: /newsletter/subscribe
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\RedirectHandler
+	 */
+	public function subscribeNewsletter($request)
+	{
+		try {
+			$validator = new Asatru\Controller\PostValidator([
+				'email' => 'required|email'
+			]);
+
+			if (!$validator->isValid()) {
+				throw new \Exception(print_r($validator->errorMsgs(), true));
+			}
+
+			$email = $request->params()->query('email');
+
+			NewsletterModel::subscribe($email);
+
+			FlashMessage::setMsg('success', __('app.newsletter_subscribed'));
+			return redirect('/');
+		} catch (\Exception $e) {
+			FlashMessage::setMsg('error', $e->getMessage());
+			return redirect('/');
+		}
+	}
+
+	/**
+	 * Handles URL: /newsletter/unsubscribe
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\RedirectHandler
+	 */
+	public function unsubscribeNewsletter($request)
+	{
+		try {
+			$token = $request->params()->query('token');
+
+			NewsletterModel::unsubscribe($token);
+
+			FlashMessage::setMsg('success', __('app.newsletter_unsubscribed'));
+			return redirect('/');
+		} catch (\Exception $e) {
+			FlashMessage::setMsg('error', $e->getMessage());
+			return redirect('/');
+		}
+	}
+
+	/**
+	 * Handles URL: /newsletter/process
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return Asatru\View\JsonHandler
+	 */
+	public function processNewsletter($request)
+	{
+		try {
+			if (!env('APP_ENABLENEWSLETTER')) {
+				throw new \Exception('Newsletter is currently deactivated');
+			}
+
+			$password = $request->params()->query('access', null);
+
+			if ($password !== env('APP_ACCESS_PASSWORD')) {
+				throw new \Exception('Invalid access password');
+			}
+
+			$photos = PhotoModel::getWeekPhotos(env('APP_PHOTOPACKLIMIT'));
+			if (!$photos) {
+				throw new \Exception('No photos to showcase');
+			}
+
+			$result = NewsletterModel::process($photos, env('APP_NEWSLETTERLIMIT'));
+
+			return json([
+				'code' => 200,
+				'data' => $result
+			]);
+		} catch (\Exception $e) {
+			return json([
+				'code' => 500,
+				'msg' => $e->getMessage()
+			]);
+		}
+	}
 }

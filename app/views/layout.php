@@ -35,6 +35,7 @@
 
             {%content%}
 
+            @include('newsletter.php')
             @include('footer.php')
             @include('scroller.php')
             @include('cookies.php')

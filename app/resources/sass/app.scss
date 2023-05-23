@@ -340,6 +340,22 @@ a.dropdown-item:hover {
     cursor: pointer;
 }
 
+.newsletter {
+    position: relative;
+    margin-bottom: 150px;
+    text-align: center;
+}
+
+.newsletter h3 {
+    font-size: 1.5em;
+}
+
+.newsletter p {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
 .scroll-to-top {
     position: fixed;
     z-index: 100;

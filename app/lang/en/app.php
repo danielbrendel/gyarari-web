@@ -54,5 +54,12 @@ return [
 	'share_clipboard' => 'Copy to clipboard',
 	'report_item' => 'Report',
 	'reportSuccess' => 'The item has been reported',
-	'cookie_notice_ok' => 'Got it!'
+	'cookie_notice_ok' => 'Got it!',
+	'newsletter_title' => 'Subscribe to our Newsletter!',
+	'newsletter_info' => 'Do you want to get the latest photos of a week to your inbox? Then subscribe here.',
+	'newsletter_email' => 'Enter a valid E-Mail address',
+	'newsletter_add' => 'Subscribe',
+	'newsletter_subscribed' => 'You have successfully subscribed to our newsletter',
+	'newsletter_unsubscribed' => 'You have successfully unsubscribed from our newsletter',
+	'newsletter_mail_subject' => 'Weekly Newsletter'
 ];
