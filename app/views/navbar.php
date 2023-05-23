@@ -49,6 +49,12 @@
             </div>
             @endif
 
+            @if (env('LINK_MASTODON'))
+            <div class="navbar-item is-inline-block is-navbar-fixed-top">
+                <a href="{{ env('LINK_MASTODON') }}"><i class="fab fa-mastodon"></i></a>
+            </div>
+            @endif
+
             @if (env('LINK_REDDIT'))
             <div class="navbar-item is-inline-block is-navbar-fixed-top">
                 <a href="{{ env('LINK_REDDIT') }}"><i class="fab fa-reddit"></i></a>
@@ -67,9 +73,9 @@
             </div>
             @endif
 
-            @if (env('LINK_MASTODON'))
+            @if (env('LINK_YOUTUBE'))
             <div class="navbar-item is-inline-block is-navbar-fixed-top">
-                <a href="{{ env('LINK_MASTODON') }}"><i class="fab fa-mastodon"></i></a>
+                <a href="{{ env('LINK_YOUTUBE') }}"><i class="fab fa-youtube"></i></a>
             </div>
             @endif
         </div>

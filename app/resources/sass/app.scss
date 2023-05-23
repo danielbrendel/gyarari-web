@@ -74,7 +74,7 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 
 .header-content {
     position: relative;
-    margin-top: 23px;
+    margin-top: 21px;
     padding: 10px;
     font-family: MedievalSharp, Nunito, Verdana, Geneva, Tahoma, sans-serif;
     @media screen and (max-width: 768px) {
@@ -349,6 +349,7 @@ a.dropdown-item:hover {
 .newsletter {
     position: relative;
     margin-bottom: 150px;
+    padding: 10px;
     text-align: center;
 }
 
