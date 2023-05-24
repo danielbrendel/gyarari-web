@@ -1,4 +1,4 @@
-<div class="footer navbar is-fixed-bottom">
+<div class="footer navbar">
     <div class="columns is-full-width">
         <div class="column is-2"></div>
         <div class="column is-8">

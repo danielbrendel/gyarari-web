@@ -361,6 +361,9 @@ a.dropdown-item:hover {
 .newsletter {
     position: relative;
     margin-bottom: 150px;
+    @media screen and (max-width: 768px) {
+        margin-bottom: 30px;
+    }
     padding: 10px;
     text-align: center;
 }
