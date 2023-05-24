@@ -88,6 +88,10 @@
                 } else if (document.getElementById('form-upload')) {
                     document.getElementById('upload-name').value = window.vue.getCookie('upload-name');
                     document.getElementById('upload-email').value = window.vue.getCookie('upload-email');
+
+                    if (document.getElementById('confirmation-email')) {
+                        document.getElementById('confirmation-email').checked = window.vue.getCookie('upload-confirmation-email', 0) == 1;
+                    }
                 }
 
                 @if (isset($photo))

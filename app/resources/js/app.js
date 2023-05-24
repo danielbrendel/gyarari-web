@@ -163,11 +163,14 @@ window.vue = new Vue({
             return html;
         },
 
-        performItemUpload: function(form, name, email) {
+        performItemUpload: function(form, name, email, confirmation) {
             let elem = document.getElementById(form);
             if (elem) {
+                let elConf = document.getElementById(confirmation);
+
                 window.vue.setCookie('upload-name', document.getElementById(name).value);
                 window.vue.setCookie('upload-email', document.getElementById(email).value);
+                window.vue.setCookie('upload-confirmation-email', ((elConf !== null) && (elConf.checked)) ? 1 : 0);
 
                 elem.submit();
             }

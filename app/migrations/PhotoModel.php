@@ -31,6 +31,7 @@ class PhotoModel_Migration {
         $this->database->add('slug VARCHAR(1024) NULL');
         $this->database->add('title VARCHAR(1024) NOT NULL');
         $this->database->add('name VARCHAR(1024) NOT NULL');
+        $this->database->add('email VARCHAR(1024) NOT NULL');
         $this->database->add('tags VARCHAR(1024) NOT NULL');
         $this->database->add('photo_thumb VARCHAR(1024) NOT NULL');
         $this->database->add('photo_full VARCHAR(1024) NOT NULL');

@@ -88,9 +88,19 @@
                         </label>
                     </div>
 
+                    @if (env('APP_ENABLEUPLOADCHECKBOX'))
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox is-top-22">
+                                    <input type="checkbox" name="confirmation-email" id="confirmation-email" value="1">&nbsp;{{ __('app.upload_confirmation_email') }}
+                                </label>
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="field">
                         <div class="control">
-                            <a class="input button is-link is-margin-top-40" href="javascript:void(0);" onclick="window.vue.performItemUpload('form-upload', 'upload-name', 'upload-email'); this.innerHTML = window.vue.getSpinnerCode();">{{ __('app.upload_submit') }}</a>
+                            <a class="input button is-link is-margin-top-40" href="javascript:void(0);" onclick="window.vue.performItemUpload('form-upload', 'upload-name', 'upload-email', 'confirmation-email'); this.innerHTML = window.vue.getSpinnerCode();">{{ __('app.upload_submit') }}</a>
                         </div>
                     </div>
                 </form>

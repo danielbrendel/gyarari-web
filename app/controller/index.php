@@ -174,6 +174,7 @@ class IndexController extends BaseController {
 			$email = $request->params()->query('email', null);
 			$tags = $request->params()->query('tags', null);
 			$captcha = $request->params()->query('captcha', null);
+			$confirmation = $request->params()->query('confirmation-email', 0);
 
 			$validator = new Asatru\Controller\PostValidator([
 				'title' => 'required|min:5',
@@ -194,7 +195,7 @@ class IndexController extends BaseController {
 				throw new \Exception(__('app.captcha_invalid'));
 			}
 
-			$photo = PhotoModel::store($title, $name, $tags);
+			$photo = PhotoModel::store($title, $name, $email, $tags);
 
 			$message = view('mail/mail_layout', ['mail', 'mail/' . env('APP_LANG', 'en') . '/mail_upload'], [
 				'name' => $name,
@@ -202,7 +203,9 @@ class IndexController extends BaseController {
 				'removal' => url('/photo/' . $photo->get('id') . '/remove/' . $photo->get('removal_token'))
 			])->out(true);
 
-			MailerModule::sendMail($email, env('APP_NAME') . ' - ' . $title, $message);
+			if ((!env('APP_ENABLEUPLOADCHECKBOX', false)) || (!$confirmation)) {
+				MailerModule::sendMail($email, env('APP_NAME') . ' - ' . $title, $message);
+			}
 
 			FlashMessage::setMsg('success', __('app.photo_shared_successfully'));
 

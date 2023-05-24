@@ -157,11 +157,12 @@ class PhotoModel extends \Asatru\Database\Model {
     /**
      * @param $title
      * @param $name
+     * @param $email
      * @param $tags
      * @return void
      * @throws \Exception
      */
-    public static function store($title, $name, $tags = '')
+    public static function store($title, $name, $email, $tags = '')
     {
         try {
             if ($_FILES[self::FILE_IDENT]['error'] !== UPLOAD_ERR_OK) {
@@ -197,9 +198,10 @@ class PhotoModel extends \Asatru\Database\Model {
 
             $approved = (env('APP_ENABLEPHOTOAPPROVAL')) ? 0 : 1;
 
-            PhotoModel::raw('INSERT INTO `' . self::tableName() . '` (title, name, tags, photo_thumb, photo_full, removal_token, approved) VALUES(?, ?, ?, ?, ?, ?, ?);', [
+            PhotoModel::raw('INSERT INTO `' . self::tableName() . '` (title, name, email, tags, photo_thumb, photo_full, removal_token, approved) VALUES(?, ?, ?, ?, ?, ?, ?, ?);', [
                 $title,
                 $name,
+                $email,
                 trim(strtolower($tags)),
                 $newName . '_thumb' . '.' . $fileExt,
                 $newName . '.' . $fileExt,

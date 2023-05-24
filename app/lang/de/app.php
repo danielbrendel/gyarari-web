@@ -63,5 +63,6 @@ return [
 	'newsletter_mail_subject' => 'Wöchendlicher Newsletter - KW {week}',
 	'file_size_too_large' => 'Die angegebene Datei ist zu groß. Deine Datei: {current}, höchstens erlaubt: {max}',
 	'captcha_invalid' => 'Der angegebene Captcha-Wert war falsch',
-	'no_file_specified' => 'Es wurde keine Datei angegeben'
+	'no_file_specified' => 'Es wurde keine Datei angegeben',
+	'upload_confirmation_email' => 'Ich benötige keine Bestätigungsmail'
 ];
