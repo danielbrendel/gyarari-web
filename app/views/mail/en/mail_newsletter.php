@@ -9,13 +9,11 @@
 
 <div>
     @foreach ($photos as $photo)
-        <div>
+        <p>
             <a href="{{ url('/photo/' . $photo->get('id')) }}">
                 <img src="{{ asset('img/photos/' . $photo->get('photo_thumb')) }}" alt="Photo"/>
             </a>
-
-            <br/><br/>
-        </div>
+        </p>
     @endforeach
 </div>
 
