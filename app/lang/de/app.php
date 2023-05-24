@@ -60,5 +60,6 @@ return [
 	'newsletter_add' => 'Abonnieren',
 	'newsletter_subscribed' => 'Du hast unseren Newsletter nun abonniert',
 	'newsletter_unsubscribed' => 'Du hast dich nun von unserem Newsletter abgemeldet',
-	'newsletter_mail_subject' => 'Wöchendlicher Newsletter - KW {week}'
+	'newsletter_mail_subject' => 'Wöchendlicher Newsletter - KW {week}',
+	'file_size_too_large' => 'Die angegebene Datei ist zu groß. Deine Datei: {current}, höchstens erlaubt: {max}'
 ];

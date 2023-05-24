@@ -62,5 +62,6 @@ return [
 	'newsletter_add' => 'Subscribe',
 	'newsletter_subscribed' => 'You have successfully subscribed to our newsletter',
 	'newsletter_unsubscribed' => 'You have successfully unsubscribed from our newsletter',
-	'newsletter_mail_subject' => 'Weekly Newsletter - Week {week}'
+	'newsletter_mail_subject' => 'Weekly Newsletter - Week {week}',
+	'file_size_too_large' => 'The given file is too large. Your file: {current}, maximum is: {max}'
 ];

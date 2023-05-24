@@ -24,7 +24,7 @@
                     <div class="field">
                         <label class="label">{{ __('app.upload_specify_title') }}</label>
                         <p class="control has-icons-left">
-                            <input class="input" type="text" name="title" placeholder="{{ __('app.upload_placeholder_title') }}" required>
+                            <input class="input" type="text" name="title" placeholder="{{ __('app.upload_placeholder_title') }}" value="{{ old('title') }}" required>
                             <span class="icon is-small is-left">
                                 <i class="fas fa-bolt"></i>
                             </span>
@@ -54,7 +54,7 @@
                     <div class="field">
                         <label class="label">{{ __('app.upload_specify_tags') }}</label>
                         <p class="control has-icons-left">
-                            <input class="input" type="text" name="tags" placeholder="{{ __('app.upload_placeholder_tags') }}">
+                            <input class="input" type="text" name="tags" placeholder="{{ __('app.upload_placeholder_tags') }}" value="{{ old('tags') }}">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-hashtag"></i>
                             </span>

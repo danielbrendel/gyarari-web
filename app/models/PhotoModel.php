@@ -168,6 +168,10 @@ class PhotoModel extends \Asatru\Database\Model {
                 throw new Exception('File upload error: ' . $_FILES[self::FILE_IDENT]['error']);
             }
 
+            if ($_FILES[self::FILE_IDENT]['size'] > env('APP_UPLOADFILESIZELIMIT')) {
+                throw new \Exception(__('app.file_size_too_large', ['current' => $_FILES[self::FILE_IDENT]['size'], 'max' => env('APP_UPLOADFILESIZELIMIT')]));
+            }
+
             $newName = md5(random_bytes(55) . date('Y-m-d H:m:i'));
             $fileExt = pathinfo($_FILES[self::FILE_IDENT]['name'], PATHINFO_EXTENSION);
 
