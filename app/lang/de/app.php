@@ -61,5 +61,7 @@ return [
 	'newsletter_subscribed' => 'Du hast unseren Newsletter nun abonniert',
 	'newsletter_unsubscribed' => 'Du hast dich nun von unserem Newsletter abgemeldet',
 	'newsletter_mail_subject' => 'Wöchendlicher Newsletter - KW {week}',
-	'file_size_too_large' => 'Die angegebene Datei ist zu groß. Deine Datei: {current}, höchstens erlaubt: {max}'
+	'file_size_too_large' => 'Die angegebene Datei ist zu groß. Deine Datei: {current}, höchstens erlaubt: {max}',
+	'captcha_invalid' => 'Der angegebene Captcha-Wert war falsch',
+	'no_file_specified' => 'Es wurde keine Datei angegeben'
 ];

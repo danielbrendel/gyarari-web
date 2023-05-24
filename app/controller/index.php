@@ -183,7 +183,11 @@ class IndexController extends BaseController {
 			]);
 
 			if (!$validator->isValid()) {
-				throw new \Exception(print_r($validator->errorMsgs(), true));
+				$errors = '';
+				foreach ($validator->errorMsgs() as $error) {
+					$errors .= $error . '<br/>';
+				}
+				throw new \Exception($errors);
 			}
 
 			if ($captcha != CaptchaModel::querySum(session_id())) {
@@ -303,7 +307,11 @@ class IndexController extends BaseController {
 			]);
 
 			if (!$validator->isValid()) {
-				throw new \Exception(print_r($validator->errorMsgs(), true));
+				$errors = '';
+				foreach ($validator->errorMsgs() as $error) {
+					$errors .= $error . '<br/>';
+				}
+				throw new \Exception($errors);
 			}
 
 			$email = $request->params()->query('email');

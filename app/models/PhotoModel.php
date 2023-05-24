@@ -165,7 +165,11 @@ class PhotoModel extends \Asatru\Database\Model {
     {
         try {
             if ($_FILES[self::FILE_IDENT]['error'] !== UPLOAD_ERR_OK) {
-                throw new Exception('File upload error: ' . $_FILES[self::FILE_IDENT]['error']);
+                if ($_FILES[self::FILE_IDENT]['error'] === UPLOAD_ERR_NO_FILE) {
+                    throw new \Exception(__('app.no_file_specified'));
+                } else {
+                    throw new \Exception('File upload error: ' . $_FILES[self::FILE_IDENT]['error']);
+                }
             }
 
             if ($_FILES[self::FILE_IDENT]['size'] > env('APP_UPLOADFILESIZELIMIT')) {
