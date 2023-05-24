@@ -26,6 +26,8 @@
         <script src="{{ asset('js/vue.min.js') }}"></script>
         @endif
         <script src="{{ asset('js/fontawesome.js') }}"></script>
+
+        {!! AppSettingsModel::getHeadCode() !!}
     </head>
 
     <body style="background-image: url('{{ asset('img/body.jpg') }}');">
