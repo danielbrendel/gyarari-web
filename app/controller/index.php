@@ -233,7 +233,10 @@ class IndexController extends BaseController {
 				'photo' => $photo,
 				'tags' => $tags,
 				'diffForHumans' => $diffForHumans,
-				'viewCount' => $viewCount
+				'viewCount' => $viewCount,
+				'og_title' => $photo->get('title'),
+				'og_url' => url('/photo/' . $photo->get('slug')),
+				'og_image' => asset('img/photos/' . $photo->get('photo_thumb'))
 			]);
 		} catch (\Exception $e) {
 			FlashMessage::setMsg('error', $e->getMessage());

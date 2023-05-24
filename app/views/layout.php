@@ -7,10 +7,10 @@
         <meta name="description" content="{{ env('APP_DESCRIPTION') }}">
         <meta name="keywords" content="{{ env('APP_KEYWORDS') }}">
 
-        <meta property="og:title" content="{{ env('APP_TITLE') }}">
+        <meta property="og:title" content="{{ ((isset($og_title)) ? $og_title : env('APP_TITLE')) }}">
         <meta property="og:description" content="{{ env('APP_DESCRIPTION') }}">
         <meta property="og:url" content="{{ url($_SERVER['REQUEST_URI']) }}">
-        <meta property="og:image" content="{{ PhotoModel::getInitialPhoto() }}">
+        <meta property="og:image" content="{{ ((isset($og_image)) ? $og_image : PhotoModel::getInitialPhoto()) }}">
 
         <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}"/>
 
