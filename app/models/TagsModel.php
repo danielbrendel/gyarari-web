@@ -12,9 +12,18 @@ class TagsModel extends \Asatru\Database\Model {
     public static function addTag($tag)
     {
         try {
-            TagsModel::raw('INSERT INTO `' . self::tableName() . '` (name) VALUES(?)', [
-                $tag
-            ]);
+            $tag = trim(strtolower($tag));
+
+            if (strlen($tag) == 0) {
+                return;
+            }
+
+            $exists = TagsModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE name = ?', [$tag])->first();
+            if (!$exists) {
+                TagsModel::raw('INSERT INTO `' . self::tableName() . '` (name) VALUES(?)', [
+                    $tag
+                ]);
+            }
         } catch (\Exception $e) {
             throw $e;
         }
