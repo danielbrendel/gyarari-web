@@ -520,4 +520,22 @@ class IndexController extends BaseController {
 			return redirect('/admin?access=' . $password);
 		}
 	}
+
+	/**
+	 * Handles URL: /sitemap
+	 * 
+	 * @param Asatru\Controller\ControllerArg $request
+	 * @return mixed
+	 */
+	public function sitemap()
+	{
+		try {
+			$xml = SitemapModule::generateXml();
+
+			header('Content-Type: text/xml');
+			return $xml;
+		} catch (\Exception $e) {
+			return abort(500);
+		}
+	}
 }

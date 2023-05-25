@@ -35,5 +35,6 @@ return [
     array('/admin/photo/{id}/decline', 'ANY', 'index@adminPhotoDecline'),
     array('/admin/photo/{id}/report/safe', 'ANY', 'index@adminPhotoSafe'),
     array('/admin/photo/{id}/report/delete', 'ANY', 'index@adminPhotoDelete'),
+    array('/sitemap', 'GET', 'index@sitemap'),
     array('$404', 'ANY', 'error404@index')
 ];
