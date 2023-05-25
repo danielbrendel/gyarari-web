@@ -411,7 +411,7 @@ a.dropdown-item:hover {
     left: 0;
     bottom: 0;
     width: 320px;
-    height: 150px;
+    min-height: 150px;
     z-index: 100;
     padding: 15px;
     margin-left: 20px;
@@ -432,7 +432,6 @@ a.dropdown-item:hover {
     position: relative;
     float: right;
     margin-top: 20px;
-    bottom: -15px;
 }
 
 .cookies-action a {
