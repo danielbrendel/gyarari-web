@@ -90,6 +90,7 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 
 .header-content h1 {
     font-size: 2.5em;
+    font-weight: bold;
     color: rgb(109, 35, 3);
     text-shadow: -1px -1px 0 rgb(255, 155, 111), 1px -1px 0 rgb(255, 155, 111), -1px 1px 0 rgb(255, 155, 111), 1px 1px 0 rgb(255, 155, 111);
     @media screen and (max-width: 768px) {
@@ -99,6 +100,7 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 
 .header-content h2 {
     font-size: 2.0em;
+    font-weight: bold;
     color: rgb(109, 35, 3);
     text-shadow: -1px -1px 0 rgb(255, 155, 111), 1px -1px 0 rgb(255, 155, 111), -1px 1px 0 rgb(255, 155, 111), 1px 1px 0 rgb(255, 155, 111);
     @media screen and (max-width: 768px) {
