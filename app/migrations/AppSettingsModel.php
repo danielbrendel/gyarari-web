@@ -30,6 +30,7 @@ class AppSettingsModel_Migration {
         $this->database->add('id INT NOT NULL AUTO_INCREMENT PRIMARY KEY');
         $this->database->add('head_code TEXT NULL');
         $this->database->add('cookie_notice VARCHAR(1024) NULL');
+        $this->database->add('upload_info VARCHAR(1024) NULL');
         $this->database->add('created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
         $this->database->create();
     }

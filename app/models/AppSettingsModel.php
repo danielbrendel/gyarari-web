@@ -58,6 +58,24 @@ class AppSettingsModel extends \Asatru\Database\Model {
     }
 
     /**
+     * @return string
+     * @throws \Exception
+     */
+    public static function getUploadInfo()
+    {
+        try {
+            $value = AppSettingsModel::getSetting('upload_info');
+            if ($value === null) {
+                return '';
+            }
+
+            return $value;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Return the associated table name of the migration
      * 
      * @return string

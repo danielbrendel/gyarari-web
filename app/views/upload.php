@@ -103,6 +103,10 @@
                             <a class="input button is-link is-margin-top-40" href="javascript:void(0);" onclick="window.vue.performItemUpload('form-upload', 'upload-name', 'upload-email', 'confirmation-email'); this.innerHTML = window.vue.getSpinnerCode();">{{ __('app.upload_submit') }}</a>
                         </div>
                     </div>
+
+                    <div class="field">
+                        {!! AppSettingsModel::getUploadInfo() !!}
+                    </div>
                 </form>
             </div>
 		</div>
