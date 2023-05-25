@@ -432,6 +432,34 @@ class PhotoModel extends \Asatru\Database\Model {
     }
 
     /**
+     * @return int
+     * @throws \Exception
+     */
+    public static function getPhotoCount()
+    {
+        try {
+            $count = PhotoModel::raw('SELECT COUNT(*) as count FROM `' . self::tableName() . '` WHERE approved = 1')->first();
+            return $count->get('count');
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * @return int
+     * @throws \Exception
+     */
+    public static function getUserCount()
+    {
+        try {
+            $count = PhotoModel::raw('SELECT COUNT(DISTINCT name) as count FROM `' . self::tableName() . '` WHERE approved = 1')->first();
+            return $count->get('count');
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * @param $id
      * @param $title
      * @return string

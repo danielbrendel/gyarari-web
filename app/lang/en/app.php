@@ -66,5 +66,6 @@ return [
 	'file_size_too_large' => 'The given file is too large. Your file: {current}, maximum is: {max}',
 	'captcha_invalid' => 'The given captcha was incorrect',
 	'no_file_specified' => 'Please input a file to upload',
-	'upload_confirmation_email' => 'Don\'t send me a confirmation e-mail'
+	'upload_confirmation_email' => 'Don\'t send me a confirmation e-mail',
+	'stats_info' => 'Currently there are {photo_count} photos from {user_count} users'
 ];

@@ -37,6 +37,7 @@
 
             {%content%}
 
+            @include('statsinfo.php')
             @include('newsletter.php')
             @include('footer.php')
             @include('scroller.php')
