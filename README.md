@@ -1,6 +1,6 @@
 # Gyarari - A free photo community app
 
-(C) 2023 by Daniel Brendel
+(C) 2023 - 2024 by Daniel Brendel
 
 **Contact**: dbrendel1988(at)gmail(dot)com\
 **GitHub**: https://github.com/danielbrendel

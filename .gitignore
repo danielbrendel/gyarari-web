@@ -2,5 +2,6 @@
 /vendor
 /node_modules
 /.idea
+/app/migrations/migrations.list
 .env
 .phpunit.result.cache
