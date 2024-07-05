@@ -12,7 +12,7 @@ class PageModel extends \Asatru\Database\Model {
     public static function getPage($ident)
     {
         try {
-            $item = PageModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE ident = ? AND active = 1 LIMIT 1', [$ident])->first();
+            $item = PageModel::raw('SELECT * FROM `@THIS` WHERE ident = ? AND active = 1 LIMIT 1', [$ident])->first();
             if (!$item) {
                 throw new \Exception('Page not found: ' . $ident);
             }
@@ -31,7 +31,7 @@ class PageModel extends \Asatru\Database\Model {
         try {
             $result = [];
 
-            $pages = PageModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE active = 1 ORDER BY id ASC');
+            $pages = PageModel::raw('SELECT * FROM `@THIS` WHERE active = 1 ORDER BY id ASC');
             foreach ($pages as $page) {
                 $result[] = (object)[
                     'url' => url('/page/' . $page->get('ident')),
@@ -43,15 +43,5 @@ class PageModel extends \Asatru\Database\Model {
         } catch (\Exception $e) {
             return array();
         }
-    }
-
-    /**
-     * Return the associated table name of the migration
-     * 
-     * @return string
-     */
-    public static function tableName()
-    {
-        return 'pages';
     }
 }

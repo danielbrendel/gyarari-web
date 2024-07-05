@@ -18,9 +18,9 @@ class TagsModel extends \Asatru\Database\Model {
                 return;
             }
 
-            $exists = TagsModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE name = ?', [$tag])->first();
+            $exists = TagsModel::raw('SELECT * FROM `@THIS` WHERE name = ?', [$tag])->first();
             if (!$exists) {
-                TagsModel::raw('INSERT INTO `' . self::tableName() . '` (name) VALUES(?)', [
+                TagsModel::raw('INSERT INTO `@THIS` (name) VALUES(?)', [
                     $tag
                 ]);
             }
@@ -42,19 +42,19 @@ class TagsModel extends \Asatru\Database\Model {
 
             if ($paginate !== null) {
                 if ($limit !== 0) {
-                    $tags = TagsModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id < ? AND active = 1 ORDER BY id DESC LIMIT ' . $limit, [
+                    $tags = TagsModel::raw('SELECT * FROM `@THIS` WHERE id < ? AND active = 1 ORDER BY id DESC LIMIT ' . $limit, [
                         $paginate
                     ]);
                 } else {
-                    $tags = TagsModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id < ? AND active = 1 ORDER BY id DESC', [
+                    $tags = TagsModel::raw('SELECT * FROM `@THIS` WHERE id < ? AND active = 1 ORDER BY id DESC', [
                         $paginate
                     ]);
                 }
             } else {
                 if ($limit !== 0) {
-                    $tags = TagsModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE active = 1 ORDER BY id DESC LIMIT ' . $limit);
+                    $tags = TagsModel::raw('SELECT * FROM `@THIS` WHERE active = 1 ORDER BY id DESC LIMIT ' . $limit);
                 } else {
-                    $tags = TagsModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE active = 1 ORDER BY id DESC');
+                    $tags = TagsModel::raw('SELECT * FROM `@THIS` WHERE active = 1 ORDER BY id DESC');
                 }
             }
             
@@ -62,15 +62,5 @@ class TagsModel extends \Asatru\Database\Model {
         } catch (\Exception $e) {
             throw $e;
         }
-    }
-
-    /**
-     * Return the associated table name of the migration
-     * 
-     * @return string
-     */
-    public static function tableName()
-    {
-        return 'tags';
     }
 }

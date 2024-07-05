@@ -13,7 +13,7 @@ class AppSettingsModel extends \Asatru\Database\Model {
     public static function getSetting($name, $row = 1)
     {
         try {
-            $data = AppSettingsModel::raw('SELECT ' . $name . ' FROM `' . self::tableName() . '` WHERE id = ? LIMIT 1', [$row])->first();
+            $data = AppSettingsModel::raw('SELECT ' . $name . ' FROM `@THIS` WHERE id = ? LIMIT 1', [$row])->first();
 
             return $data->get($name);
         } catch (\Exception $e) {
@@ -73,15 +73,5 @@ class AppSettingsModel extends \Asatru\Database\Model {
         } catch (\Exception $e) {
             throw $e;
         }
-    }
-
-    /**
-     * Return the associated table name of the migration
-     * 
-     * @return string
-     */
-    public static function tableName()
-    {
-        return 'appsettings';
     }
 }

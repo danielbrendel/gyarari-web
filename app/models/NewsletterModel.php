@@ -14,7 +14,7 @@ class NewsletterModel extends \Asatru\Database\Model {
         try {
             $token = md5(random_bytes(55) . $email);
 
-            NewsletterModel::raw('INSERT INTO `' . self::tableName() . '` (email, calendar_week, unsubscribe_token) VALUES(?, ?, ?)', [
+            NewsletterModel::raw('INSERT INTO `@THIS` (email, calendar_week, unsubscribe_token) VALUES(?, ?, ?)', [
                 $email,
                 0,
                 $token
@@ -32,7 +32,7 @@ class NewsletterModel extends \Asatru\Database\Model {
     public static function unsubscribe($token)
     {
         try {
-            NewsletterModel::raw('DELETE FROM `' . self::tableName() . '` WHERE unsubscribe_token = ?', [
+            NewsletterModel::raw('DELETE FROM `@THIS` WHERE unsubscribe_token = ?', [
                 $token
             ]);
         } catch (\Exception $e) {
@@ -53,13 +53,13 @@ class NewsletterModel extends \Asatru\Database\Model {
 
             $calendar_week = intval((new DateTime(date('Y-m-d')))->format('W'));
 
-            $emails = NewsletterModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE calendar_week <> ? LIMIT ' . $limit, [$calendar_week]);
+            $emails = NewsletterModel::raw('SELECT * FROM `@THIS` WHERE calendar_week <> ? LIMIT ' . $limit, [$calendar_week]);
             foreach ($emails as $email) {
                 $message = view('mail/mail_layout', ['mail', 'mail/' . env('APP_LANG', 'en') . '/mail_newsletter'], ['photos' => $photos, 'email' => $email->get('email'), 'token' => $email->get('unsubscribe_token')])->out(true);
 
                 MailerModule::sendMail($email->get('email'), __('app.newsletter_mail_subject', ['week' => $calendar_week]), $message);
 
-                NewsletterModel::raw('UPDATE `' . self::tableName() . '` SET calendar_week = ? WHERE id = ?', [
+                NewsletterModel::raw('UPDATE `@THIS` SET calendar_week = ? WHERE id = ?', [
                     $calendar_week,
                     $email->get('id')
                 ]);
@@ -77,15 +77,5 @@ class NewsletterModel extends \Asatru\Database\Model {
         } catch (\Exception $e) {
             throw $e;
         }
-    }
-
-    /**
-     * Return the associated table name of the migration
-     * 
-     * @return string
-     */
-    public static function tableName()
-    {
-        return 'newsletter';
     }
 }

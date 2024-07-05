@@ -198,7 +198,7 @@ class PhotoModel extends \Asatru\Database\Model {
 
             $approved = (env('APP_ENABLEPHOTOAPPROVAL')) ? 0 : 1;
 
-            PhotoModel::raw('INSERT INTO `' . self::tableName() . '` (title, name, email, tags, photo_thumb, photo_full, removal_token, approved) VALUES(?, ?, ?, ?, ?, ?, ?, ?);', [
+            PhotoModel::raw('INSERT INTO `@THIS` (title, name, email, tags, photo_thumb, photo_full, removal_token, approved) VALUES(?, ?, ?, ?, ?, ?, ?, ?);', [
                 $title,
                 $name,
                 $email,
@@ -209,11 +209,11 @@ class PhotoModel extends \Asatru\Database\Model {
                 $approved
             ]);
 
-            $last_item = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY id DESC LIMIT 1')->first();
+            $last_item = PhotoModel::raw('SELECT * FROM `@THIS` ORDER BY id DESC LIMIT 1')->first();
 
             $slug = static::slug($last_item->get('id'), $last_item->get('title'));
 
-            PhotoModel::raw('UPDATE `' . self::tableName() . '` SET slug = ? WHERE id = ?', [
+            PhotoModel::raw('UPDATE `@THIS` SET slug = ? WHERE id = ?', [
                 $slug,
                 $last_item->get('id')
             ]);
@@ -244,26 +244,26 @@ class PhotoModel extends \Asatru\Database\Model {
 
             if ($paginate !== null) {
                 if ($search_token !== null) {
-                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 AND id < ? AND (title LIKE ? OR name LIKE ? OR tags LIKE ?) ORDER BY id DESC LIMIT ' . $limit, [
+                    $photos = PhotoModel::raw('SELECT * FROM `@THIS` WHERE approved = 1 AND id < ? AND (title LIKE ? OR name LIKE ? OR tags LIKE ?) ORDER BY id DESC LIMIT ' . $limit, [
                         $paginate,
                         $search_token,
                         $search_token,
                         $search_token
                     ]);
                 } else {
-                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 AND id < ? ORDER BY id DESC LIMIT ' . $limit, [
+                    $photos = PhotoModel::raw('SELECT * FROM `@THIS` WHERE approved = 1 AND id < ? ORDER BY id DESC LIMIT ' . $limit, [
                         $paginate
                     ]);
                 }
             } else {
                 if ($search_token !== null) {
-                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 AND (title LIKE ? OR name LIKE ? OR tags LIKE ?) ORDER BY id DESC LIMIT ' . $limit, [
+                    $photos = PhotoModel::raw('SELECT * FROM `@THIS` WHERE approved = 1 AND (title LIKE ? OR name LIKE ? OR tags LIKE ?) ORDER BY id DESC LIMIT ' . $limit, [
                         $search_token,
                         $search_token,
                         $search_token
                     ]);
                 } else {
-                    $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 ORDER BY id DESC LIMIT ' . $limit);
+                    $photos = PhotoModel::raw('SELECT * FROM `@THIS` WHERE approved = 1 ORDER BY id DESC LIMIT ' . $limit);
                 }
             }
 
@@ -284,7 +284,7 @@ class PhotoModel extends \Asatru\Database\Model {
 
             $limit = env('APP_PHOTOPACKLIMIT', 20);
 
-            $photos = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 ORDER BY RAND() DESC LIMIT ' . $limit);
+            $photos = PhotoModel::raw('SELECT * FROM `@THIS` WHERE approved = 1 ORDER BY RAND() DESC LIMIT ' . $limit);
 
             return $photos;
         } catch (\Exception $e) {
@@ -300,7 +300,7 @@ class PhotoModel extends \Asatru\Database\Model {
     public static function getPhoto($id)
     {
         try {
-            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 1 AND (id = ? OR slug = ?) LIMIT 1', [
+            $photo = PhotoModel::raw('SELECT * FROM `@THIS` WHERE approved = 1 AND (id = ? OR slug = ?) LIMIT 1', [
                 $id,
                 $id
             ])->first();
@@ -318,7 +318,7 @@ class PhotoModel extends \Asatru\Database\Model {
     public static function getInitialPhoto()
     {
         try {
-            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` ORDER BY id ASC LIMIT 1')->first();
+            $photo = PhotoModel::raw('SELECT * FROM `@THIS` ORDER BY id ASC LIMIT 1')->first();
 
             if ($photo) {
                 return asset('img/photos/' . $photo->get('photo_thumb'));
@@ -339,7 +339,7 @@ class PhotoModel extends \Asatru\Database\Model {
     public static function removePhoto($id, $token)
     {
         try {
-            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id = ? AND removal_token = ? LIMIT 1', [
+            $photo = PhotoModel::raw('SELECT * FROM `@THIS` WHERE id = ? AND removal_token = ? LIMIT 1', [
                 $id,
                 $token
             ])->first();
@@ -348,7 +348,7 @@ class PhotoModel extends \Asatru\Database\Model {
                 throw new \Exception(__('app.photo_not_found'));
             }
 
-            PhotoModel::raw('DELETE FROM `' . self::tableName() . '` WHERE id = ? AND removal_token = ?', [
+            PhotoModel::raw('DELETE FROM `@THIS` WHERE id = ? AND removal_token = ?', [
                 $id,
                 $token
             ]);
@@ -368,7 +368,7 @@ class PhotoModel extends \Asatru\Database\Model {
             $end_date = date('Y-m-d');
             $start_date = date('Y-m-d', strtotime('-7 days'));
 
-            $items = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE DATE(created_at) >= ? AND DATE(created_at) <= ? AND approved = 1 ORDER BY RAND() LIMIT ' . $limit, [
+            $items = PhotoModel::raw('SELECT * FROM `@THIS` WHERE DATE(created_at) >= ? AND DATE(created_at) <= ? AND approved = 1 ORDER BY RAND() LIMIT ' . $limit, [
                 $start_date,
                 $end_date
             ]);
@@ -387,7 +387,7 @@ class PhotoModel extends \Asatru\Database\Model {
     public static function getApprovalPending($limit = 10)
     {
         try {
-            $items = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE approved = 0 ORDER BY id ASC LIMIT ' . $limit);
+            $items = PhotoModel::raw('SELECT * FROM `@THIS` WHERE approved = 0 ORDER BY id ASC LIMIT ' . $limit);
             return $items;
         } catch (\Exception $e) {
             throw $e;
@@ -402,9 +402,9 @@ class PhotoModel extends \Asatru\Database\Model {
     public static function approve($id)
     {
         try {
-            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id = ? AND approved = 0', [$id])->first();
+            $photo = PhotoModel::raw('SELECT * FROM `@THIS` WHERE id = ? AND approved = 0', [$id])->first();
             if ($photo) {
-                PhotoModel::raw('UPDATE `' . self::tableName() . '` SET approved = 1 WHERE id = ?', [$id]);
+                PhotoModel::raw('UPDATE `@THIS` SET approved = 1 WHERE id = ?', [$id]);
             }
         } catch (\Exception $e) {
             throw $e;
@@ -419,12 +419,12 @@ class PhotoModel extends \Asatru\Database\Model {
     public static function decline($id)
     {
         try {
-            $photo = PhotoModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE id = ? AND approved = 0', [$id])->first();
+            $photo = PhotoModel::raw('SELECT * FROM `@THIS` WHERE id = ? AND approved = 0', [$id])->first();
             if ($photo) {
                 unlink(public_path() . '/img/photos/' . $photo->get('photo_full'));
                 unlink(public_path() . '/img/photos/' . $photo->get('photo_thumb'));
 
-                PhotoModel::raw('DELETE FROM `' . self::tableName() . '` WHERE id = ?', [$id]);
+                PhotoModel::raw('DELETE FROM `@THIS` WHERE id = ?', [$id]);
             }
         } catch (\Exception $e) {
             throw $e;
@@ -438,7 +438,7 @@ class PhotoModel extends \Asatru\Database\Model {
     public static function getPhotoCount()
     {
         try {
-            $count = PhotoModel::raw('SELECT COUNT(*) as count FROM `' . self::tableName() . '` WHERE approved = 1')->first();
+            $count = PhotoModel::raw('SELECT COUNT(*) as count FROM `@THIS` WHERE approved = 1')->first();
             return $count->get('count');
         } catch (\Exception $e) {
             throw $e;
@@ -452,7 +452,7 @@ class PhotoModel extends \Asatru\Database\Model {
     public static function getUserCount()
     {
         try {
-            $count = PhotoModel::raw('SELECT COUNT(DISTINCT name) as count FROM `' . self::tableName() . '` WHERE approved = 1')->first();
+            $count = PhotoModel::raw('SELECT COUNT(DISTINCT name) as count FROM `@THIS` WHERE approved = 1')->first();
             return $count->get('count');
         } catch (\Exception $e) {
             throw $e;
@@ -471,15 +471,5 @@ class PhotoModel extends \Asatru\Database\Model {
         $title = str_replace(' ', '-', $title);
 
         return strval($id) . '-' . $title;
-    }
-
-    /**
-     * Return the associated table name of the migration
-     * 
-     * @return string
-     */
-    public static function tableName()
-    {
-        return 'photo';
     }
 }

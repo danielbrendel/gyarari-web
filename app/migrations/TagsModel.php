@@ -25,7 +25,7 @@ class TagsModel_Migration {
      */
     public function up()
     {
-        $this->database = new Asatru\Database\Migration('tags', $this->connection);
+        $this->database = new Asatru\Database\Migration('TagsModel', $this->connection);
         $this->database->drop();
         $this->database->add('id INT NOT NULL AUTO_INCREMENT PRIMARY KEY');
         $this->database->add('name VARCHAR(1024) NOT NULL');

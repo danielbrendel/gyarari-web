@@ -14,9 +14,9 @@ class ReportModel extends \Asatru\Database\Model {
         try {
             $token = md5($_SERVER['REMOTE_ADDR']);
 
-            $item = ReportModel::raw('SELECT * FROM `' . self::tableName() . '` WHERE token = ? AND photo = ?', [$token, $id])->first();
+            $item = ReportModel::raw('SELECT * FROM `@THIS` WHERE token = ? AND photo = ?', [$token, $id])->first();
             if (!$item) {
-                ReportModel::raw('INSERT INTO `' . self::tableName() . '` (token, photo) VALUES(?, ?)', [
+                ReportModel::raw('INSERT INTO `@THIS` (token, photo) VALUES(?, ?)', [
                     $token,
                     $id
                 ]);
@@ -34,7 +34,7 @@ class ReportModel extends \Asatru\Database\Model {
     public static function getReportCount($id)
     {
         try {
-            $data = ReportModel::raw('SELECT COUNT(*) AS count FROM `' . self::tableName() . '` WHERE photo = ?', [$id]);
+            $data = ReportModel::raw('SELECT COUNT(*) AS count FROM `@THIS` WHERE photo = ?', [$id]);
 
             return (int)$data->get('count');
         } catch (\Exception $e) {
@@ -50,7 +50,7 @@ class ReportModel extends \Asatru\Database\Model {
     public static function getReportPack($limit = 10)
     {
         try {
-            $items = ReportModel::raw('SELECT id, photo, COUNT(photo) AS count FROM `' . self::tableName() . '` GROUP BY photo ORDER BY count DESC LIMIT ' . $limit);
+            $items = ReportModel::raw('SELECT id, photo, COUNT(photo) AS count FROM `@THIS` GROUP BY photo ORDER BY count DESC LIMIT ' . $limit);
             return $items;
         } catch (\Exception $e) {
             throw $e;
@@ -65,7 +65,7 @@ class ReportModel extends \Asatru\Database\Model {
     public static function safe($photo)
     {
         try {
-            ReportModel::raw('DELETE FROM `' . self::tableName() . '` WHERE photo = ?', [$photo]);
+            ReportModel::raw('DELETE FROM `@THIS` WHERE photo = ?', [$photo]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -87,19 +87,9 @@ class ReportModel extends \Asatru\Database\Model {
                 unlink(public_path() . '/img/photos/' . $item->get('photo_full'));
             }
 
-            ReportModel::raw('DELETE FROM `' . self::tableName() . '` WHERE photo = ?', [$photo]);
+            ReportModel::raw('DELETE FROM `@THIS` WHERE photo = ?', [$photo]);
         } catch (\Exception $e) {
             throw $e;
         }
-    }
-
-    /**
-     * Return the associated table name of the migration
-     * 
-     * @return string
-     */
-    public static function tableName()
-    {
-        return 'report';
     }
 }

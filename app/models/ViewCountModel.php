@@ -17,7 +17,7 @@ class ViewCountModel extends \Asatru\Database\Model {
 
             $item = ViewCountModel::where('photo', '=', $id)->where('token', '=', $token)->first();
             if (!$item) {
-                ViewCountModel::raw('INSERT INTO `' . self::tableName() . '` (photo, token) VALUES(?, ?)', [
+                ViewCountModel::raw('INSERT INTO `@THIS` (photo, token) VALUES(?, ?)', [
                     $id,
                     $token
                 ]);
@@ -31,15 +31,5 @@ class ViewCountModel extends \Asatru\Database\Model {
         } catch (\Exception $e) {
             throw $e;
         }
-    }
-
-    /**
-     * Return the associated table name of the migration
-     * 
-     * @return string
-     */
-    public static function tableName()
-    {
-        return 'viewcount';
     }
 }

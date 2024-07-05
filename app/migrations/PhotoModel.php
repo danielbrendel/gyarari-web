@@ -25,7 +25,7 @@ class PhotoModel_Migration {
      */
     public function up()
     {
-        $this->database = new Asatru\Database\Migration('photo', $this->connection);
+        $this->database = new Asatru\Database\Migration('PhotoModel', $this->connection);
         $this->database->drop();
         $this->database->add('id INT NOT NULL AUTO_INCREMENT PRIMARY KEY');
         $this->database->add('slug VARCHAR(1024) NULL');
