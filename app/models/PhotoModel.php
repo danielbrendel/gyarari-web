@@ -211,7 +211,7 @@ class PhotoModel extends \Asatru\Database\Model {
 
             $last_item = PhotoModel::raw('SELECT * FROM `@THIS` ORDER BY id DESC LIMIT 1')->first();
 
-            $slug = static::slug($last_item->get('id'), $last_item->get('title'));
+            $slug = slug($last_item->get('id') . ' ' . $last_item->get('title'));
 
             PhotoModel::raw('UPDATE `@THIS` SET slug = ? WHERE id = ?', [
                 $slug,
@@ -457,19 +457,5 @@ class PhotoModel extends \Asatru\Database\Model {
         } catch (\Exception $e) {
             throw $e;
         }
-    }
-
-    /**
-     * @param $id
-     * @param $title
-     * @return string
-     */
-    private static function slug($id, $title)
-    {
-        $title = preg_replace("/[^A-Za-z0-9 ]/", '', $title);
-        $title = trim(strtolower($title));
-        $title = str_replace(' ', '-', $title);
-
-        return strval($id) . '-' . $title;
     }
 }
